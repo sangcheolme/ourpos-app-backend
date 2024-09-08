@@ -42,10 +42,10 @@ public class CustomerAddress extends BaseTimeEntity {
     private String telNo;
 
     @Column(name = "customer_address_base")
-    private String addressBase;
+    private String base;
 
     @Column(name = "customer_address_detail")
-    private String addressDetail;
+    private String detail;
 
     @Column(name = "customer_address_zipcode")
     private String zipcode;
@@ -54,12 +54,12 @@ public class CustomerAddress extends BaseTimeEntity {
     private Boolean defaultYn;
 
     @Builder
-    public CustomerAddress(String name, String receiverName, String telNo, String addressBase, String addressDetail, String zipcode) {
+    public CustomerAddress(String name, String receiverName, String telNo, String base, String detail, String zipcode) {
         this.name = name;
         this.receiverName = receiverName;
         this.telNo = telNo;
-        this.addressBase = addressBase;
-        this.addressDetail = addressDetail;
+        this.base = base;
+        this.detail = detail;
         this.zipcode = zipcode;
     }
 
@@ -67,12 +67,12 @@ public class CustomerAddress extends BaseTimeEntity {
         this.customer = customer;
     }
 
-    public void update(String name, String receiverName, String telNo, String addressBase, String addressDetail, String zipcode) {
+    public void update(String name, String receiverName, String telNo, String base, String detail, String zipcode) {
         this.name = name;
         this.receiverName = receiverName;
         this.telNo = telNo;
-        this.addressBase = addressBase;
-        this.addressDetail = addressDetail;
+        this.base = base;
+        this.detail = detail;
         this.zipcode = zipcode;
     }
 

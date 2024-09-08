@@ -63,8 +63,8 @@ class CustomerAddressTest {
 
     private CustomerAddress createCustomerAddress() {
         return CustomerAddress.builder()
-            .addressBase("서울시")
-            .addressDetail("중구 121")
+            .base("서울시")
+            .detail("중구 121")
             .build();
     }
 
