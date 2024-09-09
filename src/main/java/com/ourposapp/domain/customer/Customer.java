@@ -12,6 +12,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 
 import com.ourposapp.domain.generic.BaseTimeEntity;
 
@@ -22,9 +23,9 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Table(name = "customer")
 @Entity
 public class Customer extends BaseTimeEntity {
-
     public static final int MAX_ADDRESS_COUNT = 3;
 
     @Id
@@ -56,15 +57,13 @@ public class Customer extends BaseTimeEntity {
         this.role = Role.ROLE_USER;
     }
 
-    //== 연관관계 편의 메서드 ==//
     public void addCustomerAddress(CustomerAddress customerAddress) {
         if (hasReachedMaxAddresses()) {
             throw new IllegalArgumentException("고객 주소는 최대 " + MAX_ADDRESS_COUNT + "개까지 저장 가능합니다.");
         }
 
-        customerAddress.setDefaultYnFalse();
         if (customerAddresses.isEmpty()) {
-            customerAddress.setDefaultYnTrue();
+            customerAddress.setAsDefault();
         }
 
         customerAddresses.add(customerAddress);

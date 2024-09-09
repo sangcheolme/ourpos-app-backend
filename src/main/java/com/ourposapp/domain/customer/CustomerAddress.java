@@ -61,10 +61,15 @@ public class CustomerAddress extends BaseTimeEntity {
         this.base = base;
         this.detail = detail;
         this.zipcode = zipcode;
+        this.defaultYn = false;
     }
 
     public void addCustomer(Customer customer) {
         this.customer = customer;
+    }
+
+    public void setAsDefault() {
+        this.defaultYn = true;
     }
 
     public void update(String name, String receiverName, String telNo, String base, String detail, String zipcode) {
@@ -76,11 +81,4 @@ public class CustomerAddress extends BaseTimeEntity {
         this.zipcode = zipcode;
     }
 
-    public void setDefaultYnTrue() {
-        this.defaultYn = true;
-    }
-
-    public void setDefaultYnFalse() {
-        this.defaultYn = false;
-    }
 }
