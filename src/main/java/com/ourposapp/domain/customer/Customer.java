@@ -14,7 +14,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
-import com.ourposapp.domain.generic.BaseTimeEntity;
+import com.ourposapp.domain.common.BaseTimeEntity;
 
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -55,6 +55,20 @@ public class Customer extends BaseTimeEntity {
         this.name = name;
         this.phone = phone;
         this.role = Role.ROLE_USER;
+    }
+
+    public CustomerAddress getDefaultAddress() {
+        return customerAddresses.stream()
+            .filter(CustomerAddress::getDefaultYn)
+            .findFirst()
+            .orElseThrow(() -> new IllegalArgumentException("등록되어 있는 기본 주소가 없습니다. 기본 주소를 먼저 등록해주세요"));
+    }
+
+    public CustomerAddress getCustomerAddress(Long customerAddressId) {
+        return customerAddresses.stream()
+            .filter(customerAddress -> customerAddress.getId().equals(customerAddressId))
+            .findFirst()
+            .orElseThrow(() -> new IllegalArgumentException("회원의 주소가 아닙니다. " + customerAddressId));
     }
 
     public void addCustomerAddress(CustomerAddress customerAddress) {

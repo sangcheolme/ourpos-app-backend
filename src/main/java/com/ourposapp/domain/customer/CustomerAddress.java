@@ -10,7 +10,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
-import com.ourposapp.domain.generic.BaseTimeEntity;
+import com.ourposapp.domain.common.BaseTimeEntity;
 
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -54,7 +54,9 @@ public class CustomerAddress extends BaseTimeEntity {
     private Boolean defaultYn;
 
     @Builder
-    public CustomerAddress(String name, String receiverName, String telNo, String base, String detail, String zipcode) {
+    public CustomerAddress(Customer customer, String name, String receiverName, String telNo, String base,
+        String detail, String zipcode) {
+        this.customer = customer;
         this.name = name;
         this.receiverName = receiverName;
         this.telNo = telNo;
@@ -70,6 +72,10 @@ public class CustomerAddress extends BaseTimeEntity {
 
     public void setAsDefault() {
         this.defaultYn = true;
+    }
+
+    public void unsetDefault() {
+        this.defaultYn = false;
     }
 
     public void update(String name, String receiverName, String telNo, String base, String detail, String zipcode) {
