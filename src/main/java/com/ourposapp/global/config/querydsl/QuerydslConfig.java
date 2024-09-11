@@ -1,4 +1,4 @@
-package com.ourposapp.config.querydsl;
+package com.ourposapp.global.config.querydsl;
 
 import jakarta.persistence.EntityManager;
 

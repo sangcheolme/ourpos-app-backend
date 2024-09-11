@@ -1,4 +1,4 @@
-package com.ourposapp.config.p6spy;
+package com.ourposapp.global.config.p6spy;
 
 import java.util.Locale;
 

@@ -1,4 +1,4 @@
-package com.ourposapp.config.p6spy;
+package com.ourposapp.global.config.p6spy;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
