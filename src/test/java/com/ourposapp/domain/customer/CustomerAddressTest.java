@@ -1,9 +1,10 @@
 package com.ourposapp.domain.customer;
 
-import static org.assertj.core.api.Assertions.*;
-
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class CustomerAddressTest {
 
@@ -58,21 +59,39 @@ class CustomerAddressTest {
 
         // then
         assertThatThrownBy(() -> customer.addCustomerAddress(customerAddress4))
-            .isInstanceOf(IllegalArgumentException.class);
+                .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @DisplayName("나의 기본 주소 가져오기")
+    @Test
+    void getDefaultAddress() {
+        // given
+        Customer customer = createCustomer();
+        CustomerAddress customerAddress1 = createCustomerAddress();
+        CustomerAddress customerAddress2 = createCustomerAddress();
+
+        customer.addCustomerAddress(customerAddress1);
+        customer.addCustomerAddress(customerAddress2);
+
+        // when
+        CustomerAddress defaultAddress = customer.getDefaultAddress();
+
+        // then
+        assertThat(defaultAddress).isEqualTo(customerAddress1);
     }
 
     private CustomerAddress createCustomerAddress() {
         return CustomerAddress.builder()
-            .base("서울시")
-            .detail("중구 121")
-            .build();
+                .base("서울시")
+                .detail("중구 121")
+                .build();
     }
 
     private Customer createCustomer() {
         return Customer.builder()
-            .username("testId")
-            .name("test")
-            .build();
+                .username("testId")
+                .name("test")
+                .build();
     }
 
 }
