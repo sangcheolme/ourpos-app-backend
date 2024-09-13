@@ -10,6 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.ourposapp.domain.customer.entity.Customer;
+import com.ourposapp.domain.customer.entity.CustomerAddress;
+import com.ourposapp.domain.customer.repository.CustomerRepository;
+
 @Transactional
 @SpringBootTest
 class CustomerRepositoryTest {
@@ -51,7 +55,7 @@ class CustomerRepositoryTest {
     private Customer createCustomer() {
         return Customer.builder()
             .username("testId")
-            .name("test")
+            .nickname("test")
             .build();
     }
 }

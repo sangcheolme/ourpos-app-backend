@@ -13,9 +13,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ourposapp.domain.customer.Customer;
-import com.ourposapp.domain.customer.CustomerAddress;
-import com.ourposapp.domain.customer.CustomerRepository;
+import com.ourposapp.domain.customer.entity.Customer;
+import com.ourposapp.domain.customer.entity.CustomerAddress;
+import com.ourposapp.domain.customer.repository.CustomerRepository;
 
 @ActiveProfiles("test")
 @Transactional
@@ -124,7 +124,7 @@ class CustomerServiceTest {
     private Customer createCustomer(String username) {
         return Customer.builder()
             .username(username)
-            .name("test")
+            .nickname("test")
             .build();
     }
 

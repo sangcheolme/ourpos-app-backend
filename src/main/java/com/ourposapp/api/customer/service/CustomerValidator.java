@@ -2,7 +2,7 @@ package com.ourposapp.api.customer.service;
 
 import org.springframework.stereotype.Component;
 
-import com.ourposapp.domain.customer.CustomerAddress;
+import com.ourposapp.domain.customer.entity.CustomerAddress;
 
 @Component
 public class CustomerValidator {

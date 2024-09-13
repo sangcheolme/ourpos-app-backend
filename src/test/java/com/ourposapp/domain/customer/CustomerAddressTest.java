@@ -1,10 +1,12 @@
 package com.ourposapp.domain.customer;
 
+import static org.assertj.core.api.Assertions.*;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import com.ourposapp.domain.customer.entity.Customer;
+import com.ourposapp.domain.customer.entity.CustomerAddress;
 
 class CustomerAddressTest {
 
@@ -90,7 +92,7 @@ class CustomerAddressTest {
     private Customer createCustomer() {
         return Customer.builder()
                 .username("testId")
-                .name("test")
+                .nickname("test")
                 .build();
     }
 

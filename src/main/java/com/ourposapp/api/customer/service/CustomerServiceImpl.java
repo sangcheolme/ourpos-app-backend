@@ -3,9 +3,9 @@ package com.ourposapp.api.customer.service;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ourposapp.domain.customer.Customer;
-import com.ourposapp.domain.customer.CustomerAddress;
-import com.ourposapp.domain.customer.CustomerRepository;
+import com.ourposapp.domain.customer.entity.Customer;
+import com.ourposapp.domain.customer.entity.CustomerAddress;
+import com.ourposapp.domain.customer.repository.CustomerRepository;
 
 import lombok.RequiredArgsConstructor;
 

@@ -1,4 +1,4 @@
-package com.ourposapp.domain.customer;
+package com.ourposapp.domain.customer.constant;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

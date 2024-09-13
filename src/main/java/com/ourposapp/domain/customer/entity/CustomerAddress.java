@@ -1,6 +1,8 @@
-package com.ourposapp.domain.customer;
+package com.ourposapp.domain.customer.entity;
 
+import jakarta.persistence.AttributeOverride;
 import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -38,8 +40,9 @@ public class CustomerAddress extends BaseTimeEntity {
     @Column(name = "customer_address_receiver_name")
     private String receiverName;
 
-    @Column(name = "customer_address_tel_no")
-    private String telNo;
+    @Embedded
+    @AttributeOverride(name = "phoneNumber", column = @Column(name = "customer_address_phone"))
+    private Phone phone;
 
     @Column(name = "customer_address_base")
     private String base;
@@ -54,12 +57,12 @@ public class CustomerAddress extends BaseTimeEntity {
     private Boolean defaultYn;
 
     @Builder
-    public CustomerAddress(Customer customer, String name, String receiverName, String telNo, String base,
-        String detail, String zipcode) {
+    public CustomerAddress(Customer customer, String name, String receiverName, Phone phone, String base,
+                           String detail, String zipcode) {
         this.customer = customer;
         this.name = name;
         this.receiverName = receiverName;
-        this.telNo = telNo;
+        this.phone = phone;
         this.base = base;
         this.detail = detail;
         this.zipcode = zipcode;
@@ -78,10 +81,10 @@ public class CustomerAddress extends BaseTimeEntity {
         this.defaultYn = false;
     }
 
-    public void update(String name, String receiverName, String telNo, String base, String detail, String zipcode) {
+    public void update(String name, String receiverName, Phone phone, String base, String detail, String zipcode) {
         this.name = name;
         this.receiverName = receiverName;
-        this.telNo = telNo;
+        this.phone = phone;
         this.base = base;
         this.detail = detail;
         this.zipcode = zipcode;

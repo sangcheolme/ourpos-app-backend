@@ -1,10 +1,13 @@
-package com.ourposapp.domain.customer;
+package com.ourposapp.domain.customer.entity;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.AttributeOverride;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -15,6 +18,8 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 import com.ourposapp.domain.common.BaseTimeEntity;
+import com.ourposapp.domain.customer.constant.LoginType;
+import com.ourposapp.domain.customer.constant.Role;
 
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -36,25 +41,36 @@ public class Customer extends BaseTimeEntity {
     @Column(name = "customer_username", unique = true)
     private String username;
 
-    @Column(name = "customer_name")
-    private String name;
+    @Column(name = "customer_nickname")
+    private String nickname;
 
-    @Column(name = "customer_phone")
-    private String phone;
+    @Embedded
+    @AttributeOverride(name = "phoneNumber", column = @Column(name = "customer_phone"))
+    private Phone phone;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "customer_login_type")
+    private LoginType loginType;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "customer_role")
     private Role role;
 
+    @Column(length = 250)
+    private String refreshToken;
+
+    private LocalDateTime tokenExpirationTime;
+
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     private List<CustomerAddress> customerAddresses = new ArrayList<>();
 
     @Builder
-    public Customer(String username, String name, String phone) {
+    public Customer(String username, String nickname, Phone phone, LoginType loginType, Role role) {
         this.username = username;
-        this.name = name;
+        this.nickname = nickname;
         this.phone = phone;
-        this.role = Role.ROLE_USER;
+        this.loginType = loginType;
+        this.role = role;
     }
 
     public CustomerAddress getDefaultAddress() {
