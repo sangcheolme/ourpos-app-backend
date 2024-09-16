@@ -91,7 +91,6 @@ class CustomerAddressTest {
 
     private Customer createCustomer() {
         return Customer.builder()
-                .username("testId")
                 .nickname("test")
                 .build();
     }

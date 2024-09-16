@@ -16,6 +16,9 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ourposapp.domain.customer.entity.Customer;
 import com.ourposapp.domain.customer.entity.CustomerAddress;
 import com.ourposapp.domain.customer.repository.CustomerRepository;
+import com.ourposapp.domain.customer.service.CustomerService;
+import com.ourposapp.global.error.ErrorCode;
+import com.ourposapp.global.error.exception.EntityNotFoundException;
 
 @ActiveProfiles("test")
 @Transactional
@@ -84,7 +87,8 @@ class CustomerServiceTest {
         // then
         assertThatThrownBy(
             () -> customerService.changeDefaultCustomerAddress(customer1.getId(), customerAddress4.getId()))
-            .isInstanceOf(IllegalArgumentException.class);
+            .isInstanceOf(EntityNotFoundException.class)
+            .hasMessage(ErrorCode.CUSTOMER_ADDRESS_NOT_EXIST.getMessage());
     }
     
     @DisplayName("이미 기본 주소인 주소를 기본 주소로 변경하려고 하면 예외가 발생한다.")
@@ -121,10 +125,9 @@ class CustomerServiceTest {
             .build();
     }
 
-    private Customer createCustomer(String username) {
+    private Customer createCustomer(String nickname) {
         return Customer.builder()
-            .username(username)
-            .nickname("test")
+            .nickname(nickname)
             .build();
     }
 
