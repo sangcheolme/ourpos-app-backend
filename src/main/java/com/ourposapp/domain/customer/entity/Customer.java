@@ -20,6 +20,10 @@ import jakarta.persistence.Table;
 import com.ourposapp.domain.common.BaseTimeEntity;
 import com.ourposapp.domain.customer.constant.LoginType;
 import com.ourposapp.domain.customer.constant.Role;
+import com.ourposapp.global.error.ErrorCode;
+import com.ourposapp.global.error.exception.EntityNotFoundException;
+import com.ourposapp.global.jwt.dto.JwtTokenDto;
+import com.ourposapp.global.util.DateTimeUtils;
 
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -44,8 +48,11 @@ public class Customer extends BaseTimeEntity {
     @Column(name = "customer_nickname")
     private String nickname;
 
+    @Column(name = "customer_profile")
+    private String profile;
+
     @Embedded
-    @AttributeOverride(name = "phoneNumber", column = @Column(name = "customer_phone"))
+    @AttributeOverride(name = "phoneNumber", column = @Column(name = "customer_phone", unique = true))
     private Phone phone;
 
     @Enumerated(EnumType.STRING)
@@ -56,6 +63,8 @@ public class Customer extends BaseTimeEntity {
     @Column(name = "customer_role")
     private Role role;
 
+    private Boolean isPhoneVerified;
+
     @Column(length = 250)
     private String refreshToken;
 
@@ -65,26 +74,28 @@ public class Customer extends BaseTimeEntity {
     private List<CustomerAddress> customerAddresses = new ArrayList<>();
 
     @Builder
-    public Customer(String username, String nickname, Phone phone, LoginType loginType, Role role) {
+    public Customer(String username, String nickname, String profile, Phone phone, LoginType loginType, Role role) {
         this.username = username;
         this.nickname = nickname;
+        this.profile = profile;
         this.phone = phone;
         this.loginType = loginType;
         this.role = role;
+        this.isPhoneVerified = false;
     }
 
     public CustomerAddress getDefaultAddress() {
         return customerAddresses.stream()
             .filter(CustomerAddress::getDefaultYn)
             .findFirst()
-            .orElseThrow(() -> new IllegalArgumentException("등록되어 있는 기본 주소가 없습니다. 기본 주소를 먼저 등록해주세요"));
+            .orElseThrow(() -> new EntityNotFoundException(ErrorCode.CUSTOMER_ADDRESS_NOT_EXIST));
     }
 
     public CustomerAddress getCustomerAddress(Long customerAddressId) {
         return customerAddresses.stream()
             .filter(customerAddress -> customerAddress.getId().equals(customerAddressId))
             .findFirst()
-            .orElseThrow(() -> new IllegalArgumentException("회원의 주소가 아닙니다. " + customerAddressId));
+            .orElseThrow(() -> new EntityNotFoundException(ErrorCode.CUSTOMER_ADDRESS_NOT_EXIST));
     }
 
     public void addCustomerAddress(CustomerAddress customerAddress) {
@@ -102,5 +113,19 @@ public class Customer extends BaseTimeEntity {
 
     private boolean hasReachedMaxAddresses() {
         return customerAddresses.size() >= MAX_ADDRESS_COUNT;
+    }
+
+    public void updateRefreshToken(JwtTokenDto jwtTokenDto) {
+        this.refreshToken = jwtTokenDto.getRefreshToken();
+        this.tokenExpirationTime = DateTimeUtils.convertToLocalDateTime(jwtTokenDto.getRefreshTokenExpireTime());
+    }
+
+    public void expireRefreshToken(LocalDateTime now) {
+        this.tokenExpirationTime = now;
+    }
+
+    public void updatePhone(Phone phone) {
+        this.phone = phone;
+        this.isPhoneVerified = true;
     }
 }
