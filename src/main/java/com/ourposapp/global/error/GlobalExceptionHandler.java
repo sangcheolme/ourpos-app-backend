@@ -7,6 +7,7 @@ import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import com.ourposapp.global.error.exception.BusinessException;
 
@@ -46,6 +47,17 @@ public class GlobalExceptionHandler {
         log.error("handleHttpRequestMethodNotSupportedException", e);
         ErrorResponse errorResponse = ErrorResponse.of(HttpStatus.METHOD_NOT_ALLOWED.toString(), e.getMessage());
         return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED)
+            .body(errorResponse);
+    }
+
+    /**
+     * 찾을 수 없는 리소스를 호출할 때 발생
+     */
+    @ExceptionHandler(NoResourceFoundException.class)
+    public ResponseEntity<ErrorResponse> NoResourceFoundException(NoResourceFoundException e) {
+        log.error("NoResourceFoundException", e);
+        ErrorResponse errorResponse = ErrorResponse.of(HttpStatus.NOT_FOUND.toString(), e.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
             .body(errorResponse);
     }
 
