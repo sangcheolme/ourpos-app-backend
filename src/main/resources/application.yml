@@ -5,9 +5,9 @@ server:
 
 spring:
   datasource:
-    url: jdbc:h2:tcp://localhost/~/ourpos-app
-    username: sa
-    password:
+    url: ${local.datasource.url}
+    username: ${local.datasource.username}
+    password: ${local.datasource.password}
     driver-class-name: org.h2.Driver
 
   jpa:
@@ -23,9 +23,28 @@ spring:
       max-file-size: 10MB
       max-request-size: 100MB
 
+  cloud:
+    openfeign:
+      client:
+        config:
+          default:
+            connectTimeout: 5000
+            readTimeout: 5000
+
+kakao:
+  client:
+    id: ${kakao.id}
+    secret: ${kakao.secret}
+    redirect-uri: ${kakao.redirect-uri}
+
+token:
+  access-token-expiration-time: 900000 # 15분 1000(ms) x 60(s) x 15(m)
+  refresh-token-expiration-time: 1209600000 # 2주 1000(ms) x 60 (s) x 60(m) x 24(h) x 14(d)
+
 logging:
   level:
     p6spy: info
+    com.ourposapp: debug
 
 decorator:
   datasource:
@@ -55,6 +74,10 @@ spring:
   jpa:
     hibernate:
       ddl-auto: none
+
+logging:
+  level:
+    com.ourposapp: info
 
 ---
 spring:
