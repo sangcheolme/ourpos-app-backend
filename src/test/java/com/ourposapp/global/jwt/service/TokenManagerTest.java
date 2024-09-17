@@ -8,7 +8,7 @@ import java.time.Instant;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import com.ourposapp.domain.customer.constant.Role;
+import com.ourposapp.domain.user.constant.Role;
 import com.ourposapp.global.error.exception.AuthenticationException;
 import com.ourposapp.global.jwt.dto.JwtTokenDto;
 
