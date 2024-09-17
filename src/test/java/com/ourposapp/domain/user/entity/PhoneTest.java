@@ -1,9 +1,11 @@
-package com.ourposapp.domain.customer.entity;
+package com.ourposapp.domain.user.entity;
 
 import static org.assertj.core.api.Assertions.*;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import com.ourposapp.domain.common.Phone;
 
 class PhoneTest {
 
@@ -11,12 +13,12 @@ class PhoneTest {
     @Test
     void removeHyphens() {
         // given
-        Phone phone1 = new Phone("010-1234-1234");
-        Phone phone2 = new Phone("01012341234");
+        Phone phone1 = Phone.of("010-1234-1234");
+        Phone phone2 = Phone.of("01012341234");
 
         // when
-        String phoneNumber1 = phone1.getRawPhoneNumber();
-        String phoneNumber2 = phone2.getRawPhoneNumber();
+        String phoneNumber1 = phone1.getPhoneNumber();
+        String phoneNumber2 = phone2.getPhoneNumber();
 
         // then
         assertThat(phoneNumber1).isEqualTo("01012341234");
@@ -27,10 +29,10 @@ class PhoneTest {
     @Test
     void getRawPhoneNumber() {
         // given
-        Phone phone = new Phone("01012341234");
+        Phone phone = Phone.of("01012341234");
 
         // when
-        String rawPhoneNumber = phone.getRawPhoneNumber();
+        String rawPhoneNumber = phone.getPhoneNumber();
 
         // then
         assertThat(rawPhoneNumber).isEqualTo("01012341234");
@@ -40,26 +42,13 @@ class PhoneTest {
     @Test
     void getFormattedPhoneNumberWithHyphens() {
         // given
-        Phone phone = new Phone("01012341234");
+        Phone phone = Phone.of("01012341234");
         
         // when
         String formattedPhoneNumberWithHyphens = phone.getFormattedPhoneNumberWithHyphens();
 
         // then
         assertThat(formattedPhoneNumberWithHyphens).isEqualTo("010-1234-1234");
-    }
-
-    @DisplayName("핸드폰을 저장하지 않은 경우 'No Phone Number'를 리턴한다")
-    @Test
-    void noPhone() {
-        // given
-        Phone phone = new Phone();
-
-        // when
-        String rawPhoneNumber = phone.getRawPhoneNumber();
-
-        // then
-        assertThat(rawPhoneNumber).isEqualTo(Phone.NO_PHONE_NUMBER);
     }
     
 }
