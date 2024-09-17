@@ -1,6 +1,7 @@
-package com.ourposapp.domain.customer.entity;
+package com.ourposapp.domain.user.entity;
 
 import jakarta.persistence.AttributeOverride;
+import jakarta.persistence.AttributeOverrides;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
@@ -12,7 +13,9 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
+import com.ourposapp.domain.common.Address;
 import com.ourposapp.domain.common.BaseTimeEntity;
+import com.ourposapp.domain.common.Phone;
 
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -21,56 +24,52 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "customer_address")
+@Table(name = "user_address")
 @Entity
-public class CustomerAddress extends BaseTimeEntity {
+public class UserAddress extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "customer_address_id")
+    @Column(name = "user_address_id")
     private Long id;
 
-    @JoinColumn(name = "customer_id", updatable = false)
+    @JoinColumn(name = "user_id", updatable = false)
     @ManyToOne(fetch = FetchType.LAZY)
-    private Customer customer;
+    private User user;
 
-    @Column(name = "customer_address_name")
+    @Embedded
+    @AttributeOverrides({
+        @AttributeOverride(name = "address1", column = @Column(name = "user_address1")),
+        @AttributeOverride(name = "address2", column = @Column(name = "user_address2")),
+        @AttributeOverride(name = "zipcode", column = @Column(name = "user_zipcode"))
+    })
+    private Address address;
+
+    @Column(name = "user_address_name")
     private String name;
 
-    @Column(name = "customer_address_receiver_name")
+    @Column(name = "user_address_receiver_name")
     private String receiverName;
 
     @Embedded
-    @AttributeOverride(name = "phoneNumber", column = @Column(name = "customer_address_phone"))
+    @AttributeOverride(name = "phoneNumber", column = @Column(name = "user_address_phone"))
     private Phone phone;
 
-    @Column(name = "customer_address_base")
-    private String base;
-
-    @Column(name = "customer_address_detail")
-    private String detail;
-
-    @Column(name = "customer_address_zipcode")
-    private String zipcode;
-
-    @Column(name = "customer_address_default_yn")
+    @Column(name = "user_address_default_yn")
     private Boolean defaultYn;
 
     @Builder
-    public CustomerAddress(Customer customer, String name, String receiverName, Phone phone, String base,
-                           String detail, String zipcode) {
-        this.customer = customer;
+    public UserAddress(User user, Address address, String name, String receiverName, Phone phone) {
+        this.user = user;
+        this.address = address;
         this.name = name;
         this.receiverName = receiverName;
         this.phone = phone;
-        this.base = base;
-        this.detail = detail;
-        this.zipcode = zipcode;
         this.defaultYn = false;
     }
 
-    public void addCustomer(Customer customer) {
-        this.customer = customer;
+    public void addUser(User user) {
+        this.user = user;
     }
 
     public void setAsDefault() {
@@ -81,13 +80,11 @@ public class CustomerAddress extends BaseTimeEntity {
         this.defaultYn = false;
     }
 
-    public void update(String name, String receiverName, Phone phone, String base, String detail, String zipcode) {
+    public void update(String name, String receiverName, Phone phone, Address address) {
         this.name = name;
         this.receiverName = receiverName;
         this.phone = phone;
-        this.base = base;
-        this.detail = detail;
-        this.zipcode = zipcode;
+        this.address = address;
     }
 
 }

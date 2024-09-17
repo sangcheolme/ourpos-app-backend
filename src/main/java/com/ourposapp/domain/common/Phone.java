@@ -1,28 +1,28 @@
-package com.ourposapp.domain.customer.entity;
+package com.ourposapp.domain.common;
 
 import jakarta.persistence.Embeddable;
 
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Embeddable
 public class Phone {
-    public static final String NO_PHONE_NUMBER = "No Phone Number";
-
     private String phoneNumber;
 
-    public Phone(String phoneNumber) {
+    private Phone(String phoneNumber) {
         this.phoneNumber = removeHyphens(phoneNumber);
     }
 
-    public String getRawPhoneNumber() {
-        return phoneNumber != null ? phoneNumber : NO_PHONE_NUMBER;
+    public static Phone of(String phoneNumber) {
+        return new Phone(phoneNumber);
     }
 
     // '-'가 포함된 포맷의 전화번호 반환
     public String getFormattedPhoneNumberWithHyphens() {
-        return phoneNumber != null ? addHyphens(phoneNumber) : NO_PHONE_NUMBER;
+        return addHyphens(phoneNumber);
     }
 
     // 전화번호에서 '-' 제거

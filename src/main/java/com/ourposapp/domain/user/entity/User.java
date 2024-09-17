@@ -1,4 +1,4 @@
-package com.ourposapp.domain.customer.entity;
+package com.ourposapp.domain.user.entity;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -18,8 +18,9 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 import com.ourposapp.domain.common.BaseTimeEntity;
-import com.ourposapp.domain.customer.constant.LoginType;
-import com.ourposapp.domain.customer.constant.Role;
+import com.ourposapp.domain.common.Phone;
+import com.ourposapp.domain.user.constant.LoginType;
+import com.ourposapp.domain.user.constant.Role;
 import com.ourposapp.global.error.ErrorCode;
 import com.ourposapp.global.error.exception.EntityNotFoundException;
 import com.ourposapp.global.jwt.dto.JwtTokenDto;
@@ -32,35 +33,35 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "customer")
+@Table(name = "users")
 @Entity
-public class Customer extends BaseTimeEntity {
+public class User extends BaseTimeEntity {
     public static final int MAX_ADDRESS_COUNT = 3;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "customer_id")
+    @Column(name = "user_id")
     private Long id;
 
-    @Column(name = "customer_username", unique = true)
+    @Column(name = "username", unique = true)
     private String username;
 
-    @Column(name = "customer_nickname")
+    @Column(name = "user_nickname")
     private String nickname;
 
-    @Column(name = "customer_profile")
+    @Column(name = "user_profile")
     private String profile;
 
     @Embedded
-    @AttributeOverride(name = "phoneNumber", column = @Column(name = "customer_phone", unique = true))
+    @AttributeOverride(name = "phoneNumber", column = @Column(name = "user_phone", unique = true))
     private Phone phone;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "customer_login_type")
+    @Column(name = "user_login_type")
     private LoginType loginType;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "customer_role")
+    @Column(name = "user_role")
     private Role role;
 
     private Boolean isPhoneVerified;
@@ -70,11 +71,11 @@ public class Customer extends BaseTimeEntity {
 
     private LocalDateTime tokenExpirationTime;
 
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
-    private List<CustomerAddress> customerAddresses = new ArrayList<>();
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<UserAddress> userAddresses = new ArrayList<>();
 
     @Builder
-    public Customer(String username, String nickname, String profile, Phone phone, LoginType loginType, Role role) {
+    public User(String username, String nickname, String profile, Phone phone, LoginType loginType, Role role) {
         this.username = username;
         this.nickname = nickname;
         this.profile = profile;
@@ -84,35 +85,35 @@ public class Customer extends BaseTimeEntity {
         this.isPhoneVerified = false;
     }
 
-    public CustomerAddress getDefaultAddress() {
-        return customerAddresses.stream()
-            .filter(CustomerAddress::getDefaultYn)
+    public UserAddress getDefaultAddress() {
+        return userAddresses.stream()
+            .filter(UserAddress::getDefaultYn)
             .findFirst()
-            .orElseThrow(() -> new EntityNotFoundException(ErrorCode.CUSTOMER_ADDRESS_NOT_EXIST));
+            .orElseThrow(() -> new EntityNotFoundException(ErrorCode.USER_ADDRESS_NOT_EXIST));
     }
 
-    public CustomerAddress getCustomerAddress(Long customerAddressId) {
-        return customerAddresses.stream()
-            .filter(customerAddress -> customerAddress.getId().equals(customerAddressId))
+    public UserAddress getUserAddress(Long userAddressId) {
+        return userAddresses.stream()
+            .filter(userAddress -> userAddress.getId().equals(userAddressId))
             .findFirst()
-            .orElseThrow(() -> new EntityNotFoundException(ErrorCode.CUSTOMER_ADDRESS_NOT_EXIST));
+            .orElseThrow(() -> new EntityNotFoundException(ErrorCode.USER_ADDRESS_NOT_EXIST));
     }
 
-    public void addCustomerAddress(CustomerAddress customerAddress) {
+    public void addUserAddress(UserAddress userAddress) {
         if (hasReachedMaxAddresses()) {
-            throw new IllegalArgumentException("고객 주소는 최대 " + MAX_ADDRESS_COUNT + "개까지 저장 가능합니다.");
+            throw new IllegalArgumentException("회원 주소는 최대 " + MAX_ADDRESS_COUNT + "개까지 저장 가능합니다.");
         }
 
-        if (customerAddresses.isEmpty()) {
-            customerAddress.setAsDefault();
+        if (userAddresses.isEmpty()) {
+            userAddress.setAsDefault();
         }
 
-        customerAddresses.add(customerAddress);
-        customerAddress.addCustomer(this);
+        userAddresses.add(userAddress);
+        userAddress.addUser(this);
     }
 
     private boolean hasReachedMaxAddresses() {
-        return customerAddresses.size() >= MAX_ADDRESS_COUNT;
+        return userAddresses.size() >= MAX_ADDRESS_COUNT;
     }
 
     public void updateRefreshToken(JwtTokenDto jwtTokenDto) {

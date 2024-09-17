@@ -14,18 +14,17 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api")
-public class HealthCheckController {
+@RequestMapping("/api/v1")
+public class HealthCheckController implements HealthCheckControllerDocs {
 
     private final Environment environment;
 
+    @Override
     @GetMapping("/health")
     public ResponseEntity<HealthCheckResponseDto> healthCheck() {
-        HealthCheckResponseDto healthCheckResponseDto = HealthCheckResponseDto.builder()
+        return ResponseEntity.ok(HealthCheckResponseDto.builder()
             .health("ok")
             .activeProfiles(Arrays.asList(environment.getActiveProfiles()))
-            .build();
-
-        return ResponseEntity.ok(healthCheckResponseDto);
+            .build());
     }
 }
