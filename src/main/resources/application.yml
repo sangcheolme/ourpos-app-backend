@@ -4,6 +4,9 @@ server:
     context-path: /
 
 spring:
+  profiles:
+    active: local
+
   datasource:
     url: ${local.datasource.url}
     username: ${local.datasource.username}
@@ -12,7 +15,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: validate
     properties:
       hibernate:
         default_batch_fetch_size: 100
@@ -35,7 +38,7 @@ kakao:
   client:
     id: ${kakao.id}
     secret: ${kakao.secret}
-    redirect-uri: ${kakao.redirect-uri}
+    redirect-uri: ${local.kakao.redirect-uri}
 
 token:
   access-token-expiration-time: 900000 # 15분 1000(ms) x 60(s) x 15(m)
@@ -50,6 +53,26 @@ decorator:
   datasource:
     p6spy:
       enable-logging: true
+
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+
+  datasource:
+    url: ${local.datasource.url}
+    username: ${local.datasource.username}
+    password: ${local.datasource.password}
+    driver-class-name: org.h2.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+
+kakao:
+  client:
+    redirect-uri: ${local.kakao.redirect-uri}
 
 ---
 spring:
