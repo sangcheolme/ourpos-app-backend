@@ -6,7 +6,7 @@ import java.util.Date;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
-import com.ourposapp.domain.customer.constant.Role;
+import com.ourposapp.domain.user.constant.Role;
 import com.ourposapp.global.error.ErrorCode;
 import com.ourposapp.global.error.exception.AuthenticationException;
 import com.ourposapp.global.jwt.constant.GrantType;
@@ -27,12 +27,12 @@ public class TokenManager {
     private final String refreshTokenExpirationTime;
     private final String tokenSecret;
 
-    public JwtTokenDto createJwtTokenDto(Long customerId, Role role, Boolean isPhoneVerified) {
+    public JwtTokenDto createJwtTokenDto(Long userId, Role role, Boolean isPhoneVerified) {
         Date accessTokenExpireTime = createAccessTokenExpireTime();
-        String accessToken = createAccessToken(customerId, role, isPhoneVerified, accessTokenExpireTime);
+        String accessToken = createAccessToken(userId, role, isPhoneVerified, accessTokenExpireTime);
 
         Date refreshTokenExpireTime = createRefreshTokenExpireTime();
-        String refreshToken = createRefreshToken(customerId, role, isPhoneVerified, refreshTokenExpireTime);
+        String refreshToken = createRefreshToken(userId, role, isPhoneVerified, refreshTokenExpireTime);
 
         return JwtTokenDto.builder()
             .grantType(GrantType.BEARER.getType())
@@ -51,12 +51,12 @@ public class TokenManager {
         return new Date(System.currentTimeMillis() + Long.parseLong(refreshTokenExpirationTime));
     }
 
-    public String createAccessToken(Long customerId, Role role, Boolean isPhoneVerified, Date expirationTime) {
+    public String createAccessToken(Long userId, Role role, Boolean isPhoneVerified, Date expirationTime) {
         return Jwts.builder()
             .subject(TokenType.ACCESS.name())
             .issuedAt(new Date(System.currentTimeMillis()))
             .expiration(expirationTime)
-            .claim("customerId", customerId)
+            .claim("userId", userId)
             .claim("role", role)
             .claim("isPhoneVerified", isPhoneVerified)
             .signWith(getSecretKey())
@@ -64,12 +64,12 @@ public class TokenManager {
             .compact();
     }
 
-    public String createRefreshToken(Long customerId, Role role, Boolean isPhoneVerified, Date expirationTime) {
+    public String createRefreshToken(Long userId, Role role, Boolean isPhoneVerified, Date expirationTime) {
         return Jwts.builder()
             .subject(TokenType.REFRESH.name())
             .issuedAt(new Date(System.currentTimeMillis()))
             .expiration(expirationTime)
-            .claim("customerId", customerId)
+            .claim("userId", userId)
             .claim("role", role)
             .claim("isPhoneVerified", isPhoneVerified)
             .signWith(getSecretKey())

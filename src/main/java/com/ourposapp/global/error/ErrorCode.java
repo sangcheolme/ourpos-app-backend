@@ -19,12 +19,12 @@ public enum ErrorCode {
 
     // 회원
     INVALID_LOGIN_TYPE(HttpStatus.BAD_REQUEST, "C-001", "잘못된 로그인 타입입니다. (loginType: KAKAO, NAVER)"),
-    CUSTOMER_ALREADY_REGISTER(HttpStatus.BAD_REQUEST, "C-002", "이미 가입된 회원입니다."),
-    CUSTOMER_NOT_EXIST(HttpStatus.BAD_REQUEST, "C-003", "해당 회원을 찾을 수 없습니다."),
+    USER_ALREADY_REGISTER(HttpStatus.BAD_REQUEST, "C-002", "이미 가입된 회원입니다."),
+    USER_NOT_EXIST(HttpStatus.BAD_REQUEST, "C-003", "해당 회원을 찾을 수 없습니다."),
     PHONE_VERIFICATION_REQUIRED(HttpStatus.BAD_REQUEST, "C-004", "휴대폰 인증을 완료해 주세요."),
 
     // 회원 주소
-    CUSTOMER_ADDRESS_NOT_EXIST(HttpStatus.BAD_REQUEST, "CA-001", "해당 주소를 찾을 수 없습니다.")
+    USER_ADDRESS_NOT_EXIST(HttpStatus.BAD_REQUEST, "CA-001", "해당 주소를 찾을 수 없습니다.")
     ;
 
     ErrorCode(HttpStatus httpStatus, String errorCode, String message) {
