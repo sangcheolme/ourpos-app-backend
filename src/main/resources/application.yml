@@ -40,6 +40,12 @@ kakao:
     secret: ${kakao.secret}
     redirect-uri: ${local.kakao.redirect-uri}
 
+naver:
+  client:
+    id: ${naver.id}
+    secret: ${naver.secret}
+    redirect-uri: ${local.naver.redirect-uri}
+
 token:
   access-token-expiration-time: 900000 # 15분 1000(ms) x 60(s) x 15(m)
   refresh-token-expiration-time: 1209600000 # 2주 1000(ms) x 60 (s) x 60(m) x 24(h) x 14(d)

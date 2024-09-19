@@ -18,8 +18,8 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @Transactional
 public class KakaoLoginApiServiceImpl implements SocialLoginApiService {
-    public static final String KAKAO_PREFIX = "kakao_";
-    public static final String CONTENT_TYPE = "application/x-www-form-urlencoded;charset=utf-8";
+    private static final String KAKAO_PREFIX = "kakao_";
+    private static final String CONTENT_TYPE = "application/x-www-form-urlencoded;charset=utf-8";
 
     private final KakaoUserInfoClient kakaoUserInfoClient;
 
