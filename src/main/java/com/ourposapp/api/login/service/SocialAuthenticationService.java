@@ -5,7 +5,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ourposapp.api.login.dto.LoginDto;
+import com.ourposapp.api.login.dto.AuthTokenDto;
 import com.ourposapp.domain.user.constant.LoginType;
 import com.ourposapp.domain.user.constant.Role;
 import com.ourposapp.domain.user.entity.User;
@@ -29,7 +29,7 @@ public class SocialAuthenticationService implements AuthenticationService {
     private final TokenManager tokenManager;
 
     @Override
-    public LoginDto.Response authenticate(String accessToken, LoginType loginType) {
+    public AuthTokenDto.Response authenticate(String accessToken, LoginType loginType) {
         SocialLoginApiService socialLoginApiService = SocialLoginApiServiceFactory.getSocialLoginApiService(loginType);
 
         OAuthAttributes userInfo = socialLoginApiService.getUserInfo(accessToken);
@@ -49,6 +49,6 @@ public class SocialAuthenticationService implements AuthenticationService {
         jwtTokenDto = tokenManager.createJwtTokenDto(oauthUser.getId(), oauthUser.getRole(), oauthUser.getIsPhoneVerified());
         oauthUser.updateRefreshToken(jwtTokenDto);
 
-        return LoginDto.Response.of(jwtTokenDto);
+        return AuthTokenDto.Response.of(jwtTokenDto);
     }
 }

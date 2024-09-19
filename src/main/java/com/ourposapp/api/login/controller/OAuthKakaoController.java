@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.ourposapp.api.login.dto.LoginDto;
+import com.ourposapp.api.login.dto.AuthTokenDto;
 import com.ourposapp.api.login.service.AuthenticationService;
 import com.ourposapp.domain.user.constant.LoginType;
 import com.ourposapp.external.oauth.kakao.client.KakaoTokenClient;
@@ -53,7 +53,7 @@ public class OAuthKakaoController implements OAuthKakaoControllerDocs {
     }
 
     @GetMapping("/code/kakao")
-    public ResponseEntity<LoginDto.Response> kakaoLoginCallback(String code) {
+    public ResponseEntity<AuthTokenDto.Response> kakaoLoginCallback(String code) {
         KakaoTokenDto.Request kakaoTokenRequestDto = KakaoTokenDto.Request.builder()
             .grant_type(AUTHORIZATION_CODE)
             .client_id(clientId)
@@ -65,7 +65,7 @@ public class OAuthKakaoController implements OAuthKakaoControllerDocs {
         KakaoTokenDto.Response tokenResponse = kakaoTokenClient.requestKakaoToken(CONTENT_TYPE, kakaoTokenRequestDto);
         String accessToken = tokenResponse.getAccess_token();
 
-        LoginDto.Response response = authenticationService.authenticate(accessToken, LoginType.KAKAO);
+        AuthTokenDto.Response response = authenticationService.authenticate(accessToken, LoginType.KAKAO);
         return ResponseEntity.ok(response);
     }
 }

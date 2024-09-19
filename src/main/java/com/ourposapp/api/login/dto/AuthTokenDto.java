@@ -14,7 +14,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-public class LoginDto {
+public class AuthTokenDto {
 
     @Getter
     @Setter
