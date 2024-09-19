@@ -59,7 +59,9 @@ public class WebConfig implements WebMvcConfigurer {
             .addPathPatterns("/api/v1/**")
             .excludePathPatterns(
                 "/api/v1/access-token/issue",
-                "/api/v1/logout"
+                "/api/v1/logout",
+                "/api/v1/phone-auth",
+                "/api/v1/phone-auth/check"
             );
     }
 

@@ -1,4 +1,4 @@
-package com.ourposapp.api.logout.controller;
+package com.ourposapp.api.login.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

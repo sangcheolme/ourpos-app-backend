@@ -2,11 +2,11 @@ package com.ourposapp.api.login.controller;
 
 import java.io.IOException;
 
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,6 +17,7 @@ import com.ourposapp.api.login.service.AuthenticationService;
 import com.ourposapp.domain.user.constant.LoginType;
 import com.ourposapp.external.oauth.naver.client.NaverTokenClient;
 import com.ourposapp.external.oauth.naver.dto.NaverTokenDto;
+import com.ourposapp.global.util.CookieUtils;
 
 import lombok.RequiredArgsConstructor;
 
@@ -53,7 +54,7 @@ public class OAuthNaverController implements OAuthNaverControllerDocs {
     }
 
     @GetMapping("/code/naver")
-    public ResponseEntity<AuthTokenDto.Response> naverLoginCallback(String code, String state) {
+    public void naverLoginCallback(String code, String state, HttpServletResponse response) throws IOException {
         NaverTokenDto.Request naverTokenRequestDto = NaverTokenDto.Request.builder()
             .grant_type(AUTHORIZATION_CODE)
             .client_id(clientId)
@@ -66,8 +67,11 @@ public class OAuthNaverController implements OAuthNaverControllerDocs {
         NaverTokenDto.Response tokenResponse = naverTokenClient.requestNaverToken(naverTokenRequestDto);
         String accessToken = tokenResponse.getAccess_token();
 
-        AuthTokenDto.Response response = authenticationService.authenticate(accessToken, LoginType.NAVER);
-        return ResponseEntity.ok(response);
+        AuthTokenDto.Response authTokenDto = authenticationService.authenticate(accessToken, LoginType.NAVER);
+        Cookie cookie = CookieUtils.create("refresh_token", authTokenDto.getRefreshToken(), 60 * 60 * 60);
+
+        response.addCookie(cookie);
+        response.sendRedirect("http://localhost:3000");
     }
 
 }

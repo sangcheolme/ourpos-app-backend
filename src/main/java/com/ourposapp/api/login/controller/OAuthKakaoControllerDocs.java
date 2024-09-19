@@ -4,10 +4,7 @@ import java.io.IOException;
 
 import jakarta.servlet.http.HttpServletResponse;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-
-import com.ourposapp.api.login.dto.AuthTokenDto;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -23,5 +20,5 @@ public interface OAuthKakaoControllerDocs {
     @Tag(name = "authentication")
     @Operation(summary = "카카오 소셜 로그인 API", description = "카카오 소셜 로그인 콜백 요청 구현 API")
     @GetMapping("/code/kakao")
-    ResponseEntity<AuthTokenDto.Response> kakaoLoginCallback(String code);
+    void kakaoLoginCallback(String code, HttpServletResponse response) throws IOException;
 }

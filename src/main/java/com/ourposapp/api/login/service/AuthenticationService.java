@@ -6,4 +6,6 @@ import com.ourposapp.domain.user.constant.LoginType;
 public interface AuthenticationService {
 
     AuthTokenDto.Response authenticate(String accessToken, LoginType loginType);
+
+    void logout(String accessToken);
 }

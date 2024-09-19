@@ -22,9 +22,11 @@ public enum ErrorCode {
     USER_ALREADY_REGISTER(HttpStatus.BAD_REQUEST, "C-002", "이미 가입된 회원입니다."),
     USER_NOT_EXIST(HttpStatus.BAD_REQUEST, "C-003", "해당 회원을 찾을 수 없습니다."),
     PHONE_VERIFICATION_REQUIRED(HttpStatus.BAD_REQUEST, "C-004", "휴대폰 인증을 완료해 주세요."),
+    PHONE_NUMBER_NOT_EXIST(HttpStatus.BAD_REQUEST, "C-005", "휴대폰 인증 요청을 먼저 해주세요."),
+    INVALID_AUTH_NUMBER(HttpStatus.BAD_REQUEST, "C-006", "휴대폰 인증번호가 일치하지 않습니다."),
 
     // 회원 주소
-    USER_ADDRESS_NOT_EXIST(HttpStatus.BAD_REQUEST, "CA-001", "해당 주소를 찾을 수 없습니다.")
+    USER_ADDRESS_NOT_EXIST(HttpStatus.BAD_REQUEST, "CA-001", "해당 주소를 찾을 수 없습니다."),
     ;
 
     ErrorCode(HttpStatus httpStatus, String errorCode, String message) {

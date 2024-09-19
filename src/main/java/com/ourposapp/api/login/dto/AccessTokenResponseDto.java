@@ -1,4 +1,4 @@
-package com.ourposapp.api.token.dto;
+package com.ourposapp.api.login.dto;
 
 import java.util.Date;
 

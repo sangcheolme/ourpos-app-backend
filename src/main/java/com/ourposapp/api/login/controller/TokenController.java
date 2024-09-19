@@ -1,4 +1,4 @@
-package com.ourposapp.api.token.controller;
+package com.ourposapp.api.login.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ourposapp.api.token.dto.AccessTokenResponseDto;
-import com.ourposapp.api.token.service.TokenService;
+import com.ourposapp.api.login.dto.AccessTokenResponseDto;
+import com.ourposapp.api.login.service.TokenService;
 import com.ourposapp.global.util.AuthorizationHeaderUtils;
 
 import lombok.RequiredArgsConstructor;
