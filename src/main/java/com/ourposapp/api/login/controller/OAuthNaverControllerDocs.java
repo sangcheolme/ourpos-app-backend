@@ -7,7 +7,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import com.ourposapp.api.login.dto.OAuthLoginDto;
+import com.ourposapp.api.login.dto.LoginDto;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -23,5 +23,5 @@ public interface OAuthNaverControllerDocs {
     @Tag(name = "authentication")
     @Operation(summary = "네이버 소셜 로그인 API", description = "네이버 소셜 로그인 콜백 요청 구현 API")
     @GetMapping("/code/naver")
-    ResponseEntity<OAuthLoginDto.Response> naverLoginCallback(String code, String state);
+    ResponseEntity<LoginDto.Response> naverLoginCallback(String code, String state);
 }

@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.ourposapp.api.login.dto.OAuthLoginDto;
-import com.ourposapp.api.login.service.OAuthLoginService;
+import com.ourposapp.api.login.dto.LoginDto;
+import com.ourposapp.api.login.service.AuthenticationService;
 import com.ourposapp.domain.user.constant.LoginType;
 import com.ourposapp.external.oauth.naver.client.NaverTokenClient;
 import com.ourposapp.external.oauth.naver.dto.NaverTokenDto;
@@ -38,7 +38,7 @@ public class OAuthNaverController implements OAuthNaverControllerDocs {
     private String redirectUri;
 
     private final NaverTokenClient naverTokenClient;
-    private final OAuthLoginService oauthLoginService;
+    private final AuthenticationService authenticationService;
 
     @GetMapping("/authorization/naver")
     public void naverLogin(HttpServletResponse response) throws IOException {
@@ -53,7 +53,7 @@ public class OAuthNaverController implements OAuthNaverControllerDocs {
     }
 
     @GetMapping("/code/naver")
-    public ResponseEntity<OAuthLoginDto.Response> naverLoginCallback(String code, String state) {
+    public ResponseEntity<LoginDto.Response> naverLoginCallback(String code, String state) {
         NaverTokenDto.Request naverTokenRequestDto = NaverTokenDto.Request.builder()
             .grant_type(AUTHORIZATION_CODE)
             .client_id(clientId)
@@ -66,7 +66,7 @@ public class OAuthNaverController implements OAuthNaverControllerDocs {
         NaverTokenDto.Response tokenResponse = naverTokenClient.requestNaverToken(naverTokenRequestDto);
         String accessToken = tokenResponse.getAccess_token();
 
-        OAuthLoginDto.Response response = oauthLoginService.oauthLogin(accessToken, LoginType.NAVER);
+        LoginDto.Response response = authenticationService.authenticate(accessToken, LoginType.NAVER);
         return ResponseEntity.ok(response);
     }
 
