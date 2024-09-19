@@ -33,8 +33,7 @@ public class UserServiceImpl implements UserService {
     }
 
     private void validateDuplicateUser(User user) {
-        if (userRepository.existsByUsername(user.getUsername())
-            || userRepository.existsByPhone(user.getPhone())) {
+        if (userRepository.existsByUsername(user.getUsername())) {
             throw new AuthenticationException(ErrorCode.USER_ALREADY_REGISTER);
         }
     }
