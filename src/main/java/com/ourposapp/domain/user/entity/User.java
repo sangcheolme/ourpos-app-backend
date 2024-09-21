@@ -23,6 +23,7 @@ import com.ourposapp.domain.user.constant.LoginType;
 import com.ourposapp.domain.user.constant.Role;
 import com.ourposapp.global.error.ErrorCode;
 import com.ourposapp.global.error.exception.EntityNotFoundException;
+import com.ourposapp.global.error.exception.InvalidAddressException;
 import com.ourposapp.global.jwt.dto.JwtTokenDto;
 import com.ourposapp.global.util.DateTimeUtils;
 
@@ -101,7 +102,7 @@ public class User extends BaseTimeEntity {
 
     public void addUserAddress(UserAddress userAddress) {
         if (hasReachedMaxAddresses()) {
-            throw new IllegalArgumentException("회원 주소는 최대 " + MAX_ADDRESS_COUNT + "개까지 저장 가능합니다.");
+            throw new InvalidAddressException(ErrorCode.USER_ADDRESS_MAX_LIMIT_EXCEEDED);
         }
 
         if (userAddresses.isEmpty()) {

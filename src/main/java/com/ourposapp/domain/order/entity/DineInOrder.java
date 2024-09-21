@@ -10,7 +10,7 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Table;
 
-import com.ourposapp.domain.order.constnat.DineInStatus;
+import com.ourposapp.domain.order.constant.DineInStatus;
 
 import lombok.AccessLevel;
 import lombok.Builder;

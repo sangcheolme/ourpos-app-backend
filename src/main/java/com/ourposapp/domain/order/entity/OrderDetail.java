@@ -19,7 +19,6 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.Singular;
 
 @Getter
@@ -33,7 +32,6 @@ public class OrderDetail {
     @Column(name = "order_detail_id")
     private Long id;
 
-    @Setter
     @JoinColumn(name = "order_id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Order order;
@@ -60,10 +58,13 @@ public class OrderDetail {
         this.price = calculatePrice();
     }
 
-    // 연관관계 편의 메서드
     public void addOrderOptionGroup(OrderOptionGroup orderOptionGroup) {
         orderOptionGroups.add(orderOptionGroup);
         orderOptionGroup.setOrderDetail(this);
+    }
+
+    public void addOrder(Order order) {
+        this.order = order;
     }
 
     private Integer calculatePrice() {

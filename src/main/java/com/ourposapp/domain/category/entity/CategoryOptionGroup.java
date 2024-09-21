@@ -1,4 +1,4 @@
-package com.ourposapp.domain.menu.entity;
+package com.ourposapp.domain.category.entity;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -22,61 +22,59 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Singular;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-@Table(name = "menu_option_group")
-public class MenuOptionGroup {
+@Table(name = "category_option_group")
+public class CategoryOptionGroup {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "menu_option_group_id")
+	@Column(name = "category_option_group_id")
 	private Long id;
 
 	@JoinColumn(name = "category_id")
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Category category;
 
-	@Column(name = "menu_option_group_name")
+	@Column(name = "category_option_group_name")
 	private String name;
 
-	@Column(name = "menu_option_group_exclusive_yn")
+	@Column(name = "category_option_group_exclusive_yn")
 	private Boolean exclusiveYn;
 
-	@Column(name = "menu_option_group_description")
+	@Column(name = "category_option_group_description")
 	private String description;
 
-	@Column(name = "menu_option_group_deleted_yn")
+	@Column(name = "category_option_group_deleted_yn")
 	private Boolean deletedYn;
 
-	@Column(name = "menu_option_group_deleted_datetime")
+	@Column(name = "category_option_group_deleted_datetime")
 	private LocalDateTime deletedDateTime;
 
-	@OneToMany(mappedBy = "menuOptionGroup", cascade = CascadeType.ALL)
-	@SQLRestriction("menu_option_deleted_yn = false")
-	private List<MenuOption> menuOptions = new ArrayList<>();
+	@OneToMany(mappedBy = "categoryOptionGroup", cascade = CascadeType.ALL)
+	@SQLRestriction("category_option_deleted_yn = false")
+	private List<CategoryOption> categoryOptions = new ArrayList<>();
 
 	@Builder
-	private MenuOptionGroup(String name, Category category, Boolean exclusiveYn, String description,
-		@Singular List<MenuOption> menuOptions) {
+	private CategoryOptionGroup(String name, Category category, Boolean exclusiveYn, String description, List<CategoryOption> categoryOptions) {
 		this.category = category;
 		this.name = name;
 		this.exclusiveYn = exclusiveYn;
 		this.description = description;
 		this.deletedYn = false;
-		for (MenuOption menuOption : menuOptions) {
-			addMenuOption(menuOption);
+		for (CategoryOption categoryOption : categoryOptions) {
+			addCategoryOption(categoryOption);
 		}
 	}
 
-	public void addMenuOption(MenuOption menuOption) {
-		menuOptions.add(menuOption);
-		menuOption.setMenuOptionGroup(this);
+	public void addCategoryOption(CategoryOption categoryOption) {
+		categoryOptions.add(categoryOption);
+		categoryOption.addCategoryOptionGroup(this);
 	}
 
-	public void addCategory(Category category) {
+	void addCategory(Category category) {
 		this.category = category;
 	}
 
@@ -90,6 +88,6 @@ public class MenuOptionGroup {
 	public void delete(LocalDateTime deletedDateTime) {
 		this.deletedYn = true;
 		this.deletedDateTime = deletedDateTime;
-		menuOptions.forEach(menuOption -> menuOption.delete(deletedDateTime));
+		categoryOptions.forEach(categoryOption -> categoryOption.delete(deletedDateTime));
 	}
 }

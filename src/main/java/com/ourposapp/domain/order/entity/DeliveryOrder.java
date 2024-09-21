@@ -15,7 +15,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
-import com.ourposapp.domain.order.constnat.DeliveryStatus;
+import com.ourposapp.domain.order.constant.DeliveryStatus;
 
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -54,7 +54,7 @@ public class DeliveryOrder extends Order {
 
     @Builder
     private DeliveryOrder(Long userId, Long storeId, DeliveryAddress deliveryAddress, String ownerMessage,
-        String riderMessage, Integer tip, Boolean disposableYn, List<OrderDetail> orderDetails) {
+                          String riderMessage, Integer tip, Boolean disposableYn, List<OrderDetail> orderDetails) {
         super(userId, storeId, orderDetails);
         this.deliveryAddress = deliveryAddress;
         this.ownerMessage = ownerMessage;

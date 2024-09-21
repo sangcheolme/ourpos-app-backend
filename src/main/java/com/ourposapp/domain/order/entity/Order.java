@@ -48,7 +48,7 @@ public abstract class Order extends BaseEntity {
     private LocalDateTime completedDateTime;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
-    private List<com.ourposapp.domain.order.entity.OrderDetail> orderDetails = new ArrayList<>();
+    private List<OrderDetail> orderDetails = new ArrayList<>();
 
     protected Order(Long userId, Long storeId, List<OrderDetail> orderDetails) {
         this.userId = userId;
@@ -59,10 +59,9 @@ public abstract class Order extends BaseEntity {
         }
     }
 
-    // 연관관계 편의 메서드
     public void addOrderDetail(OrderDetail orderDetail) {
         orderDetails.add(orderDetail);
-        orderDetail.setOrder(this);
+        orderDetail.addOrder(this);
     }
 
     public Integer calculateTotalPrice() {
@@ -71,7 +70,6 @@ public abstract class Order extends BaseEntity {
             .sum();
     }
 
-    // 주문 완료 시간 설정
     public void setCompleteOrderTime(LocalDateTime completedDateTime) {
         this.completedDateTime = completedDateTime;
     }

@@ -4,8 +4,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.ourposapp.api.user.dto.UserInfoResponseDto;
-import com.ourposapp.global.resolver.login.UserInfoDto;
 import com.ourposapp.global.resolver.login.Login;
+import com.ourposapp.global.resolver.login.UserInfoDto;
+import com.ourposapp.global.response.Result;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -23,5 +24,5 @@ public interface UserControllerDocs {
         @ApiResponse(responseCode = "C-004", description = "휴대폰 인증을 완료해 주세요."),
     })
     @GetMapping("/info")
-    ResponseEntity<UserInfoResponseDto> getUserInfo(@Login UserInfoDto userInfoDto);
+    ResponseEntity<Result<UserInfoResponseDto>> getUserInfo(@Login UserInfoDto userInfoDto);
 }

@@ -1,4 +1,4 @@
-package com.ourposapp.domain.menu.entity;
+package com.ourposapp.domain.category.entity;
 
 import java.time.LocalDateTime;
 
@@ -21,41 +21,45 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-@Table(name = "menu_option")
-public class MenuOption {
+@Table(name = "category_option")
+public class CategoryOption {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "menu_option_id")
+	@Column(name = "category_option_id")
 	private Long id;
 
 	@Setter
-	@JoinColumn(name = "menu_option_group_id")
+	@JoinColumn(name = "category_option_group_id")
 	@ManyToOne(fetch = FetchType.LAZY)
-	private MenuOptionGroup menuOptionGroup;
+	private CategoryOptionGroup categoryOptionGroup;
 
-	@Column(name = "menu_option_name")
+	@Column(name = "category_option_name")
 	private String name;
 
-	@Column(name = "menu_option_price")
+	@Column(name = "category_option_price")
 	private Integer price;
 
-	@Column(name = "menu_option_deleted_yn")
+	@Column(name = "category_option_deleted_yn")
 	private Boolean deletedYn;
 
-	@Column(name = "menu_option_deleted_datetime")
+	@Column(name = "category_option_deleted_datetime")
 	private LocalDateTime deletedDateTime;
 
 	@Builder
-	private MenuOption(String name, Integer price, MenuOptionGroup menuOptionGroup) {
-		this.menuOptionGroup = menuOptionGroup;
+	private CategoryOption(String name, Integer price, CategoryOptionGroup categoryOptionGroup) {
+		this.categoryOptionGroup = categoryOptionGroup;
 		this.name = name;
 		this.price = price;
 		this.deletedYn = false;
 	}
 
-	public void update(MenuOptionGroup menuOptionGroup, String name, Integer price) {
-		this.menuOptionGroup = menuOptionGroup;
+	void addCategoryOptionGroup(CategoryOptionGroup categoryOptionGroup) {
+		this.categoryOptionGroup = categoryOptionGroup;
+	}
+
+	public void update(CategoryOptionGroup categoryOptionGroup, String name, Integer price) {
+		this.categoryOptionGroup = categoryOptionGroup;
 		this.name = name;
 		this.price = price;
 	}

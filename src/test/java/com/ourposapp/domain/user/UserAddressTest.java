@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import com.ourposapp.domain.common.Address;
 import com.ourposapp.domain.user.entity.User;
 import com.ourposapp.domain.user.entity.UserAddress;
+import com.ourposapp.global.error.exception.InvalidAddressException;
 
 class UserAddressTest {
 
@@ -62,7 +63,7 @@ class UserAddressTest {
 
         // then
         assertThatThrownBy(() -> user.addUserAddress(userAddress4))
-                .isInstanceOf(IllegalArgumentException.class);
+                .isInstanceOf(InvalidAddressException.class);
     }
 
     @DisplayName("나의 기본 주소 가져오기")

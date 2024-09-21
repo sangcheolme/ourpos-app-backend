@@ -1,4 +1,4 @@
-package com.ourposapp.domain.menu.entity;
+package com.ourposapp.domain.category.entity;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -19,7 +19,6 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Singular;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -41,22 +40,21 @@ public class Category extends BaseTimeEntity {
 	private LocalDateTime deletedDateTime;
 
 	@OneToMany(mappedBy = "category")
-	@SQLRestriction("menu_option_group_deleted_yn = false")
-	private List<MenuOptionGroup> menuOptionGroups = new ArrayList<>();
+	@SQLRestriction("category_option_group_deleted_yn = false")
+	private List<CategoryOptionGroup> categoryOptionGroups = new ArrayList<>();
 
 	@Builder
-	private Category(String name, @Singular List<MenuOptionGroup> menuOptionGroups) {
+	private Category(String name, List<CategoryOptionGroup> categoryOptionGroups) {
 		this.name = name;
 		this.deletedYn = false;
-		for (MenuOptionGroup menuOptionGroup : menuOptionGroups) {
-			addMenuOptionGroup(menuOptionGroup);
+		for (CategoryOptionGroup categoryOptionGroup : categoryOptionGroups) {
+			addMenuOptionGroup(categoryOptionGroup);
 		}
 	}
 
-	// 연관관계 편의 메서드
-	public void addMenuOptionGroup(MenuOptionGroup menuOptionGroup) {
-		menuOptionGroups.add(menuOptionGroup);
-		menuOptionGroup.addCategory(this);
+	public void addMenuOptionGroup(CategoryOptionGroup categoryOptionGroup) {
+		categoryOptionGroups.add(categoryOptionGroup);
+		categoryOptionGroup.addCategory(this);
 	}
 
 	public void update(String name) {
@@ -66,7 +64,7 @@ public class Category extends BaseTimeEntity {
 	public void delete(LocalDateTime deletedDateTime) {
 		this.deletedYn = true;
 		this.deletedDateTime = deletedDateTime;
-		menuOptionGroups.forEach(menuOptionGroup -> menuOptionGroup.delete(deletedDateTime));
+		categoryOptionGroups.forEach(categoryOptionGroup -> categoryOptionGroup.delete(deletedDateTime));
 	}
 }
 

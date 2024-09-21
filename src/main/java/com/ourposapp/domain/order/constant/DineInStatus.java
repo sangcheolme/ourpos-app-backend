@@ -1,4 +1,4 @@
-package com.ourposapp.domain.order.constnat;
+package com.ourposapp.domain.order.constant;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
