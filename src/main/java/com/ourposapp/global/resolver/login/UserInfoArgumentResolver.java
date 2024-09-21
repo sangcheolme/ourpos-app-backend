@@ -10,6 +10,7 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 
 import com.ourposapp.domain.user.constant.Role;
 import com.ourposapp.global.jwt.service.TokenManager;
+import com.ourposapp.global.util.CookieUtils;
 
 import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
@@ -31,10 +32,9 @@ public class UserInfoArgumentResolver implements HandlerMethodArgumentResolver {
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest,
                                   WebDataBinderFactory binderFactory) throws Exception {
         HttpServletRequest request = (HttpServletRequest)webRequest.getNativeRequest();
-        String authorizationHeader = request.getHeader("Authorization");
-        String token = authorizationHeader.split(" ")[1];
+        String accessToken = CookieUtils.getAccessToken(request);
 
-        Claims tokenClaims = tokenManager.getTokenClaims(token);
+        Claims tokenClaims = tokenManager.getTokenClaims(accessToken);
         Long userId = Long.valueOf((Integer)tokenClaims.get("userId"));
         String role = (String)tokenClaims.get("role");
 

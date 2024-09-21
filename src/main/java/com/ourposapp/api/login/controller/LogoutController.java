@@ -1,5 +1,6 @@
 package com.ourposapp.api.login.controller;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -19,12 +20,12 @@ public class LogoutController implements LogoutControllerDocs {
     private final AuthenticationService authenticationService;
 
     @PostMapping("/logout")
-    public ResponseEntity<String> logout(@RequestHeader("Authorization") String authorization) {
+    public ResponseEntity<Void> logout(@RequestHeader("Authorization") String authorization) {
         AuthorizationHeaderUtils.validateAuthorization(authorization);
         String accessToken = authorization.split(" ")[1];
 
         authenticationService.logout(accessToken);
 
-        return ResponseEntity.ok("logout success");
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

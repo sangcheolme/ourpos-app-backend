@@ -60,6 +60,9 @@ decorator:
     p6spy:
       enable-logging: true
 
+client:
+  base-url: http://localhost:5173
+
 ---
 spring:
   config:
@@ -79,6 +82,8 @@ spring:
 kakao:
   client:
     redirect-uri: ${local.kakao.redirect-uri}
+
+
 
 ---
 spring:

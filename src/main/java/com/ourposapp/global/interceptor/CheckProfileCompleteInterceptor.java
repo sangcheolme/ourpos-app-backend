@@ -8,6 +8,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import com.ourposapp.global.error.ErrorCode;
 import com.ourposapp.global.error.exception.IncompleteProfileException;
 import com.ourposapp.global.jwt.service.TokenManager;
+import com.ourposapp.global.util.CookieUtils;
 
 import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
@@ -19,16 +20,12 @@ public class CheckProfileCompleteInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        String authorizationHeader = request.getHeader("Authorization");
-        String accessToken = authorizationHeader.split(" ")[1];
-
+        String accessToken = CookieUtils.getAccessToken(request);
         Claims tokenClaims = tokenManager.getTokenClaims(accessToken);
         Boolean isPhoneVerified = (Boolean)tokenClaims.get("isPhoneVerified");
-
         if (!isPhoneVerified) {
             throw new IncompleteProfileException(ErrorCode.PHONE_VERIFICATION_REQUIRED);
         }
-
         return true;
     }
 }

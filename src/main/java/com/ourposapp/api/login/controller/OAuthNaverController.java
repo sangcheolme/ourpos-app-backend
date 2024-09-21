@@ -2,11 +2,11 @@ package com.ourposapp.api.login.controller;
 
 import java.io.IOException;
 
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.http.ResponseCookie;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -38,6 +38,9 @@ public class OAuthNaverController implements OAuthNaverControllerDocs {
     @Value("${naver.client.redirect-uri}")
     private String redirectUri;
 
+    @Value("${client.base-url}")
+    private String baseUrl;
+
     private final NaverTokenClient naverTokenClient;
     private final AuthenticationService authenticationService;
 
@@ -68,10 +71,12 @@ public class OAuthNaverController implements OAuthNaverControllerDocs {
         String accessToken = tokenResponse.getAccess_token();
 
         AuthTokenDto.Response authTokenDto = authenticationService.authenticate(accessToken, LoginType.NAVER);
-        Cookie cookie = CookieUtils.create("refresh_token", authTokenDto.getRefreshToken(), 60 * 60 * 60);
 
-        response.addCookie(cookie);
-        response.sendRedirect("http://localhost:3000");
+        ResponseCookie accessCookie = CookieUtils.createAccessToken(authTokenDto.getAccessToken());
+        ResponseCookie refreshCookie = CookieUtils.createRefreshToken(authTokenDto.getRefreshToken());
+        response.addHeader("Set-Cookie", accessCookie.toString());
+        response.addHeader("Set-Cookie", refreshCookie.toString());
+        response.sendRedirect(baseUrl);
     }
 
 }

@@ -10,7 +10,7 @@ public enum ErrorCode {
     // 인증 & 인가
     TOKEN_EXPIRED(HttpStatus.UNAUTHORIZED, "A-001", "토큰이 만료되었습니다."),
     TOKEN_INVALID(HttpStatus.UNAUTHORIZED, "A-002", "유효하지 않은 토큰입니다."),
-    NOT_EXIST_AUTHORIZATION(HttpStatus.UNAUTHORIZED, "A-003", "Authorization header가 빈값입니다."),
+    NOT_EXIST_AUTHORIZATION(HttpStatus.UNAUTHORIZED, "A-003", "Authorization 쿠키가 빈값입니다."),
     NOT_VALID_BEARER_GRANT_TYPE(HttpStatus.UNAUTHORIZED, "A-004", "인증 타입이 Bearer 타입이 아닙니다."),
     REFRESH_TOKEN_NOT_FOUND(HttpStatus.UNAUTHORIZED, "A-005", "해당 refresh token은 존재하지 않습니다."),
     REFRESH_TOKEN_EXPIRED(HttpStatus.UNAUTHORIZED, "A-006", "해당 refresh token은 만료되었습니다."),
@@ -27,6 +27,7 @@ public enum ErrorCode {
 
     // 회원 주소
     USER_ADDRESS_NOT_EXIST(HttpStatus.BAD_REQUEST, "CA-001", "해당 주소를 찾을 수 없습니다."),
+    USER_ADDRESS_MAX_LIMIT_EXCEEDED(HttpStatus.BAD_REQUEST, "CA-002", "등록할 수 있는 최대 주소 개수를 초과했습니다.");
     ;
 
     ErrorCode(HttpStatus httpStatus, String errorCode, String message) {

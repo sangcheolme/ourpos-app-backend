@@ -1,14 +1,18 @@
 package com.ourposapp.api.login.controller;
 
-import org.springframework.http.ResponseEntity;
+import java.io.IOException;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+import org.springframework.http.ResponseCookie;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ourposapp.api.login.dto.AccessTokenResponseDto;
 import com.ourposapp.api.login.service.TokenService;
-import com.ourposapp.global.util.AuthorizationHeaderUtils;
+import com.ourposapp.global.util.CookieUtils;
 
 import lombok.RequiredArgsConstructor;
 
@@ -20,13 +24,12 @@ public class TokenController {
     private final TokenService tokenService;
 
     @PostMapping("/access-token/issue")
-    public ResponseEntity<AccessTokenResponseDto> createAccessToken(@RequestHeader("Authorization") String authorization) {
-        AuthorizationHeaderUtils.validateAuthorization(authorization);
-
-        String refreshToken = authorization.split(" ")[1];
+    public void createAccessToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String refreshToken = CookieUtils.getRefreshToken(request);
         AccessTokenResponseDto accessTokenResponseDto = tokenService.createAccessTokenByRefreshToken(refreshToken);
+        ResponseCookie accessToken = CookieUtils.createAccessToken(accessTokenResponseDto.getAccessToken());
 
-        return ResponseEntity.ok(accessTokenResponseDto);
+        response.addHeader("Set-Cookie", accessToken.toString());
     }
 
 }

@@ -9,6 +9,7 @@ import com.ourposapp.domain.user.constant.Role;
 import com.ourposapp.global.error.ErrorCode;
 import com.ourposapp.global.error.exception.AuthenticationException;
 import com.ourposapp.global.jwt.service.TokenManager;
+import com.ourposapp.global.util.CookieUtils;
 
 import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
@@ -20,16 +21,12 @@ public class AdminAuthorizationInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-
-        String authorizationHeader = request.getHeader("Authorization");
-        String accessToken = authorizationHeader.split(" ")[1];
-
+        String accessToken = CookieUtils.getAccessToken(request);
         Claims tokenClaims = tokenManager.getTokenClaims(accessToken);
         String role = (String)tokenClaims.get("role");
         if (!Role.ROLE_ADMIN.equals(Role.from(role))) {
             throw new AuthenticationException(ErrorCode.FORBIDDEN_ADMIN);
         }
-
         return true;
     }
 }

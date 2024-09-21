@@ -13,5 +13,5 @@ public interface LogoutControllerDocs {
     @Tag(name = "authentication")
     @Operation(summary = "로그아웃 API", description = "로그아웃시 refresh token 만료 처리")
     @PostMapping("/logout")
-    ResponseEntity<String> logout(@RequestHeader("Authorization") String authorization);
+    ResponseEntity<Void> logout(@RequestHeader("Authorization") String authorization);
 }
