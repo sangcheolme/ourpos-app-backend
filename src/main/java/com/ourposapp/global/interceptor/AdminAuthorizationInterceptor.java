@@ -5,7 +5,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import org.springframework.web.servlet.HandlerInterceptor;
 
-import com.ourposapp.domain.user.constant.Role;
+import com.ourposapp.user.domain.user.constant.Role;
 import com.ourposapp.global.error.ErrorCode;
 import com.ourposapp.global.error.exception.AuthenticationException;
 import com.ourposapp.global.jwt.service.TokenManager;

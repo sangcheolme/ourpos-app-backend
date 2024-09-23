@@ -5,7 +5,7 @@ import static org.assertj.core.api.Assertions.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import com.ourposapp.domain.common.Phone;
+import com.ourposapp.common.model.Phone;
 
 class PhoneTest {
 
@@ -37,18 +37,18 @@ class PhoneTest {
         // then
         assertThat(rawPhoneNumber).isEqualTo("01012341234");
     }
-    
+
     @DisplayName("'-'가 포함된 포맷의 전화번호 반환")
     @Test
     void getFormattedPhoneNumberWithHyphens() {
         // given
         Phone phone = Phone.of("01012341234");
-        
+
         // when
         String formattedPhoneNumberWithHyphens = phone.getFormattedPhoneNumberWithHyphens();
 
         // then
         assertThat(formattedPhoneNumberWithHyphens).isEqualTo("010-1234-1234");
     }
-    
+
 }

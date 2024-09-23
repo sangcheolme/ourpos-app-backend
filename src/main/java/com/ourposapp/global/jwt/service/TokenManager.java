@@ -6,7 +6,7 @@ import java.util.Date;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
-import com.ourposapp.domain.user.constant.Role;
+import com.ourposapp.user.domain.user.constant.Role;
 import com.ourposapp.global.error.ErrorCode;
 import com.ourposapp.global.error.exception.AuthenticationException;
 import com.ourposapp.global.jwt.constant.GrantType;

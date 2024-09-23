@@ -10,11 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ourposapp.domain.common.Address;
-import com.ourposapp.domain.common.Phone;
-import com.ourposapp.domain.user.entity.User;
-import com.ourposapp.domain.user.entity.UserAddress;
-import com.ourposapp.domain.user.repository.UserRepository;
+import com.ourposapp.common.model.Address;
+import com.ourposapp.common.model.Phone;
+import com.ourposapp.user.domain.user.entity.User;
+import com.ourposapp.user.domain.user.entity.UserAddress;
+import com.ourposapp.user.domain.user.repository.UserRepository;
 
 @Transactional
 @SpringBootTest

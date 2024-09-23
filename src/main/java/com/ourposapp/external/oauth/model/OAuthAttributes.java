@@ -1,8 +1,8 @@
 package com.ourposapp.external.oauth.model;
 
-import com.ourposapp.domain.user.constant.LoginType;
-import com.ourposapp.domain.user.constant.Role;
-import com.ourposapp.domain.user.entity.User;
+import com.ourposapp.user.domain.user.constant.LoginType;
+import com.ourposapp.user.domain.user.constant.Role;
+import com.ourposapp.user.domain.user.entity.User;
 
 import lombok.Builder;
 import lombok.Getter;

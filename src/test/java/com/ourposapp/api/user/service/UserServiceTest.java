@@ -13,13 +13,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ourposapp.domain.common.Address;
-import com.ourposapp.domain.user.entity.User;
-import com.ourposapp.domain.user.entity.UserAddress;
-import com.ourposapp.domain.user.repository.UserRepository;
-import com.ourposapp.domain.user.service.UserService;
+import com.ourposapp.common.model.Address;
 import com.ourposapp.global.error.ErrorCode;
 import com.ourposapp.global.error.exception.EntityNotFoundException;
+import com.ourposapp.user.application.user.UserService;
+import com.ourposapp.user.domain.user.entity.User;
+import com.ourposapp.user.domain.user.entity.UserAddress;
+import com.ourposapp.user.domain.user.repository.UserRepository;
 
 @ActiveProfiles("test")
 @Transactional
@@ -50,7 +50,7 @@ class UserServiceTest {
 
         userRepository.save(user);
         clearPersistenceContext();
-        
+
         // when
         // 기본주소 변경: 1 -> 2
         userService.changeDefaultUserAddress(user.getId(), userAddress2.getId());
@@ -66,7 +66,7 @@ class UserServiceTest {
         assertThat(findUserAddress2.getDefaultYn()).isTrue();
         assertThat(findUserAddress3.getDefaultYn()).isFalse();
     }
-    
+
     @DisplayName("회원은 본인의 주소가 아닌 주소를 기본 주소로 변경하려 하면 예외가 발생한다.")
     @Test
     void changDefaultUserAddress_ex_notMyAddress() {
@@ -91,7 +91,7 @@ class UserServiceTest {
             .isInstanceOf(EntityNotFoundException.class)
             .hasMessage(ErrorCode.USER_ADDRESS_NOT_EXIST.getMessage());
     }
-    
+
     @DisplayName("이미 기본 주소인 주소를 기본 주소로 변경하려고 하면 예외가 발생한다.")
     @Test
     void changDefaultUserAddress_ex_alreadyDefault() {

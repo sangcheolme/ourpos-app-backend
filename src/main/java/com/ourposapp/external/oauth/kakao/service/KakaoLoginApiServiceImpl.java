@@ -3,7 +3,7 @@ package com.ourposapp.external.oauth.kakao.service;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ourposapp.domain.user.constant.LoginType;
+import com.ourposapp.user.domain.user.constant.LoginType;
 import com.ourposapp.external.oauth.kakao.client.KakaoUserInfoClient;
 import com.ourposapp.external.oauth.kakao.dto.KakaoUserInfoResponseDto;
 import com.ourposapp.external.oauth.model.OAuthAttributes;

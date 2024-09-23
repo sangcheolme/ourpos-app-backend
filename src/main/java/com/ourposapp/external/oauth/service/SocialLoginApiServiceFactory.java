@@ -4,7 +4,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
-import com.ourposapp.domain.user.constant.LoginType;
+import com.ourposapp.user.domain.user.constant.LoginType;
 
 @Component
 public class SocialLoginApiServiceFactory {
