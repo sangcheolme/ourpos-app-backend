@@ -27,8 +27,7 @@ public class AtalkNotifier implements PhoneAuthNotifier {
     private final DefaultMessageService messageService;
 
     public AtalkNotifier(@Value("${sms.api.key}") String apiKey, @Value("${sms.api.secret}") String apiSecret) {
-        this.messageService = NurigoApp.INSTANCE.initialize(
-            apiKey, apiSecret, "https://api.coolsms.co.kr");
+        this.messageService = NurigoApp.INSTANCE.initialize(apiKey, apiSecret, "https://api.coolsms.co.kr");
     }
 
     public void sendOne(String to, String text) {
