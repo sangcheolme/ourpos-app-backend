@@ -29,65 +29,66 @@ import lombok.NoArgsConstructor;
 @Table(name = "category_option_group")
 public class CategoryOptionGroup {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "category_option_group_id")
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "category_option_group_id")
+    private Long id;
 
-	@JoinColumn(name = "category_id")
-	@ManyToOne(fetch = FetchType.LAZY)
-	private Category category;
+    @JoinColumn(name = "category_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Category category;
 
-	@Column(name = "category_option_group_name")
-	private String name;
+    @Column(name = "category_option_group_name")
+    private String name;
 
-	@Column(name = "category_option_group_exclusive_yn")
-	private Boolean exclusiveYn;
+    @Column(name = "category_option_group_exclusive_yn")
+    private Boolean exclusiveYn;
 
-	@Column(name = "category_option_group_description")
-	private String description;
+    @Column(name = "category_option_group_description")
+    private String description;
 
-	@Column(name = "category_option_group_deleted_yn")
-	private Boolean deletedYn;
+    @Column(name = "category_option_group_deleted_yn")
+    private Boolean deletedYn;
 
-	@Column(name = "category_option_group_deleted_datetime")
-	private LocalDateTime deletedDateTime;
+    @Column(name = "category_option_group_deleted_datetime")
+    private LocalDateTime deletedDateTime;
 
-	@OneToMany(mappedBy = "categoryOptionGroup", cascade = CascadeType.ALL)
-	@SQLRestriction("category_option_deleted_yn = false")
-	private List<CategoryOption> categoryOptions = new ArrayList<>();
+    @OneToMany(mappedBy = "categoryOptionGroup", cascade = CascadeType.ALL)
+    @SQLRestriction("category_option_deleted_yn = false")
+    private List<CategoryOption> categoryOptions = new ArrayList<>();
 
-	@Builder
-	private CategoryOptionGroup(String name, Category category, Boolean exclusiveYn, String description, List<CategoryOption> categoryOptions) {
-		this.category = category;
-		this.name = name;
-		this.exclusiveYn = exclusiveYn;
-		this.description = description;
-		this.deletedYn = false;
-		for (CategoryOption categoryOption : categoryOptions) {
-			addCategoryOption(categoryOption);
-		}
-	}
+    @Builder
+    private CategoryOptionGroup(String name, Category category, Boolean exclusiveYn, String description,
+        List<CategoryOption> categoryOptions) {
+        this.category = category;
+        this.name = name;
+        this.exclusiveYn = exclusiveYn;
+        this.description = description;
+        this.deletedYn = false;
+        for (CategoryOption categoryOption : categoryOptions) {
+            addCategoryOption(categoryOption);
+        }
+    }
 
-	public void addCategoryOption(CategoryOption categoryOption) {
-		categoryOptions.add(categoryOption);
-		categoryOption.addCategoryOptionGroup(this);
-	}
+    public void addCategoryOption(CategoryOption categoryOption) {
+        categoryOptions.add(categoryOption);
+        categoryOption.addCategoryOptionGroup(this);
+    }
 
-	void addCategory(Category category) {
-		this.category = category;
-	}
+    void addCategory(Category category) {
+        this.category = category;
+    }
 
-	public void update(Category category, String name, Boolean exclusiveYn, String description) {
-		this.category = category;
-		this.name = name;
-		this.exclusiveYn = exclusiveYn;
-		this.description = description;
-	}
+    public void update(Category category, String name, Boolean exclusiveYn, String description) {
+        this.category = category;
+        this.name = name;
+        this.exclusiveYn = exclusiveYn;
+        this.description = description;
+    }
 
-	public void delete(LocalDateTime deletedDateTime) {
-		this.deletedYn = true;
-		this.deletedDateTime = deletedDateTime;
-		categoryOptions.forEach(categoryOption -> categoryOption.delete(deletedDateTime));
-	}
+    public void delete(LocalDateTime deletedDateTime) {
+        this.deletedYn = true;
+        this.deletedDateTime = deletedDateTime;
+        categoryOptions.forEach(categoryOption -> categoryOption.delete(deletedDateTime));
+    }
 }

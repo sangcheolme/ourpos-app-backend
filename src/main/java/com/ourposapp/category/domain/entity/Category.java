@@ -25,46 +25,46 @@ import lombok.NoArgsConstructor;
 @Entity
 public class Category extends BaseTimeEntity {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "category_id")
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "category_id")
+    private Long id;
 
-	@Column(name = "category_name")
-	private String name;
+    @Column(name = "category_name")
+    private String name;
 
-	@Column(name = "category_deleted_yn")
-	private Boolean deletedYn;
+    @Column(name = "category_deleted_yn")
+    private Boolean deletedYn;
 
-	@Column(name = "category_deleted_date_time")
-	private LocalDateTime deletedDateTime;
+    @Column(name = "category_deleted_date_time")
+    private LocalDateTime deletedDateTime;
 
-	@OneToMany(mappedBy = "category")
-	@SQLRestriction("category_option_group_deleted_yn = false")
-	private List<CategoryOptionGroup> categoryOptionGroups = new ArrayList<>();
+    @OneToMany(mappedBy = "category")
+    @SQLRestriction("category_option_group_deleted_yn = false")
+    private List<CategoryOptionGroup> categoryOptionGroups = new ArrayList<>();
 
-	@Builder
-	private Category(String name, List<CategoryOptionGroup> categoryOptionGroups) {
-		this.name = name;
-		this.deletedYn = false;
-		for (CategoryOptionGroup categoryOptionGroup : categoryOptionGroups) {
-			addMenuOptionGroup(categoryOptionGroup);
-		}
-	}
+    @Builder
+    private Category(String name, List<CategoryOptionGroup> categoryOptionGroups) {
+        this.name = name;
+        this.deletedYn = false;
+        for (CategoryOptionGroup categoryOptionGroup : categoryOptionGroups) {
+            addMenuOptionGroup(categoryOptionGroup);
+        }
+    }
 
-	public void addMenuOptionGroup(CategoryOptionGroup categoryOptionGroup) {
-		categoryOptionGroups.add(categoryOptionGroup);
-		categoryOptionGroup.addCategory(this);
-	}
+    public void addMenuOptionGroup(CategoryOptionGroup categoryOptionGroup) {
+        categoryOptionGroups.add(categoryOptionGroup);
+        categoryOptionGroup.addCategory(this);
+    }
 
-	public void update(String name) {
-		this.name = name;
-	}
+    public void update(String name) {
+        this.name = name;
+    }
 
-	public void delete(LocalDateTime deletedDateTime) {
-		this.deletedYn = true;
-		this.deletedDateTime = deletedDateTime;
-		categoryOptionGroups.forEach(categoryOptionGroup -> categoryOptionGroup.delete(deletedDateTime));
-	}
+    public void delete(LocalDateTime deletedDateTime) {
+        this.deletedYn = true;
+        this.deletedDateTime = deletedDateTime;
+        categoryOptionGroups.forEach(categoryOptionGroup -> categoryOptionGroup.delete(deletedDateTime));
+    }
 }
 

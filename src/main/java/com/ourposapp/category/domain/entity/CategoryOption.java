@@ -27,48 +27,48 @@ import lombok.NoArgsConstructor;
 @Table(name = "category_option")
 public class CategoryOption {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "category_option_id")
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "category_option_id")
+    private Long id;
 
-	@JoinColumn(name = "category_option_group_id")
-	@ManyToOne(fetch = FetchType.LAZY)
-	private CategoryOptionGroup categoryOptionGroup;
+    @JoinColumn(name = "category_option_group_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private CategoryOptionGroup categoryOptionGroup;
 
-	@Column(name = "category_option_name")
-	private String name;
+    @Column(name = "category_option_name")
+    private String name;
 
-	@Convert(converter = MoneyConverter.class)
-	@Column(name = "category_option_price")
-	private Money price;
+    @Convert(converter = MoneyConverter.class)
+    @Column(name = "category_option_price")
+    private Money price;
 
-	@Column(name = "category_option_deleted_yn")
-	private Boolean deletedYn;
+    @Column(name = "category_option_deleted_yn")
+    private Boolean deletedYn;
 
-	@Column(name = "category_option_deleted_datetime")
-	private LocalDateTime deletedDateTime;
+    @Column(name = "category_option_deleted_datetime")
+    private LocalDateTime deletedDateTime;
 
-	@Builder
-	private CategoryOption(CategoryOptionGroup categoryOptionGroup, String name, Money price) {
-		this.name = name;
-		this.price = price;
-		this.categoryOptionGroup = categoryOptionGroup;
-		this.deletedYn = false;
-	}
+    @Builder
+    private CategoryOption(CategoryOptionGroup categoryOptionGroup, String name, Money price) {
+        this.name = name;
+        this.price = price;
+        this.categoryOptionGroup = categoryOptionGroup;
+        this.deletedYn = false;
+    }
 
-	void addCategoryOptionGroup(CategoryOptionGroup categoryOptionGroup) {
-		this.categoryOptionGroup = categoryOptionGroup;
-	}
+    void addCategoryOptionGroup(CategoryOptionGroup categoryOptionGroup) {
+        this.categoryOptionGroup = categoryOptionGroup;
+    }
 
-	public void update(CategoryOptionGroup categoryOptionGroup, String name, Money price) {
-		this.categoryOptionGroup = categoryOptionGroup;
-		this.name = name;
-		this.price = price;
-	}
+    public void update(CategoryOptionGroup categoryOptionGroup, String name, Money price) {
+        this.categoryOptionGroup = categoryOptionGroup;
+        this.name = name;
+        this.price = price;
+    }
 
-	public void delete(LocalDateTime deletedDateTime) {
-		this.deletedYn = true;
-		this.deletedDateTime = deletedDateTime;
-	}
+    public void delete(LocalDateTime deletedDateTime) {
+        this.deletedYn = true;
+        this.deletedDateTime = deletedDateTime;
+    }
 }

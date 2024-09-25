@@ -3,12 +3,12 @@ package com.ourposapp.external.oauth.naver.service;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ourposapp.user.domain.user.constant.LoginType;
 import com.ourposapp.external.oauth.model.OAuthAttributes;
 import com.ourposapp.external.oauth.naver.client.NaverUserInfoClient;
 import com.ourposapp.external.oauth.naver.dto.NaverUserInfoResponseDto;
 import com.ourposapp.external.oauth.service.SocialLoginApiService;
 import com.ourposapp.global.jwt.constant.GrantType;
+import com.ourposapp.user.domain.user.constant.LoginType;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
