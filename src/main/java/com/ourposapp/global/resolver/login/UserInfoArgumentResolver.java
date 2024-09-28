@@ -8,9 +8,9 @@ import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
-import com.ourposapp.user.domain.user.constant.Role;
 import com.ourposapp.global.jwt.service.TokenManager;
 import com.ourposapp.global.util.CookieUtils;
+import com.ourposapp.user.domain.user.constant.Role;
 
 import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
@@ -29,18 +29,19 @@ public class UserInfoArgumentResolver implements HandlerMethodArgumentResolver {
     }
 
     @Override
-    public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest,
+    public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer,
+                                  NativeWebRequest webRequest,
                                   WebDataBinderFactory binderFactory) throws Exception {
-        HttpServletRequest request = (HttpServletRequest)webRequest.getNativeRequest();
+        HttpServletRequest request = (HttpServletRequest) webRequest.getNativeRequest();
         String accessToken = CookieUtils.getAccessToken(request);
 
         Claims tokenClaims = tokenManager.getTokenClaims(accessToken);
-        Long userId = Long.valueOf((Integer)tokenClaims.get("userId"));
-        String role = (String)tokenClaims.get("role");
+        Long userId = Long.valueOf((Integer) tokenClaims.get("userId"));
+        String role = (String) tokenClaims.get("role");
 
         return UserInfoDto.builder()
-            .userId(userId)
-            .role(Role.from(role))
-            .build();
+                .userId(userId)
+                .role(Role.from(role))
+                .build();
     }
 }

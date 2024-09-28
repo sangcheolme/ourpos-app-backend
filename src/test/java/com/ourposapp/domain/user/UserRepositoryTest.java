@@ -43,8 +43,8 @@ class UserRepositoryTest {
 
         // then
         assertThat(userAddresses).hasSize(3)
-            .extracting("defaultYn")
-            .containsExactly(true, false, false);
+                .extracting("defaultYn")
+                .containsExactly(true, false, false);
     }
 
     @DisplayName("핸드폰 번호를 통해 회원의 존재 여부를 조회할 수 있다.")
@@ -53,8 +53,8 @@ class UserRepositoryTest {
         // given
         Phone phone = Phone.of("01012341234");
         User user = User.builder()
-            .phone(phone)
-            .build();
+                .phone(phone)
+                .build();
         userRepository.save(user);
 
         // when
@@ -70,8 +70,8 @@ class UserRepositoryTest {
         // given
         String username = "hello";
         User user = User.builder()
-            .username(username)
-            .build();
+                .username(username)
+                .build();
         userRepository.save(user);
 
         // when
@@ -83,13 +83,13 @@ class UserRepositoryTest {
 
     private UserAddress createUserAddress() {
         return UserAddress.builder()
-            .address(Address.of("서울시 중구 1번길 10", "현대아파트 101호", "11111"))
-            .build();
+                .address(Address.of("서울시 중구 1번길 10", "현대아파트 101호", "11111"))
+                .build();
     }
 
     private User createUser() {
         return User.builder()
-            .nickname("test")
-            .build();
+                .nickname("test")
+                .build();
     }
 }

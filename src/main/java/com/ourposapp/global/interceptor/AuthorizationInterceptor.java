@@ -20,7 +20,8 @@ public class AuthorizationInterceptor implements HandlerInterceptor {
     private final TokenManager tokenManager;
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws
+            Exception {
         String accessToken = CookieUtils.getAccessToken(request);
         Claims tokenClaims = tokenManager.getTokenClaims(accessToken);
         String tokenType = tokenClaims.getSubject();

@@ -20,12 +20,12 @@ public class OAuthAttributes {
 
     public User toUserEntity(Role role) {
         return User.builder()
-            .username(username)
-            .nickname(nickname)
-            .loginType(loginType)
-            .profile(profile)
-            .role(role)
-            .build();
+                .username(username)
+                .nickname(nickname)
+                .loginType(loginType)
+                .profile(profile)
+                .role(role)
+                .build();
     }
 
 }

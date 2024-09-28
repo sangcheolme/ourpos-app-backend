@@ -42,12 +42,12 @@ public class AuthTokenDto {
 
         public static Response of(JwtTokenDto jwtTokenDto) {
             return Response.builder()
-                .grantType(jwtTokenDto.getGrantType())
-                .accessToken(jwtTokenDto.getAccessToken())
-                .refreshToken(jwtTokenDto.getRefreshToken())
-                .accessTokenExpireTime(jwtTokenDto.getAccessTokenExpireTime())
-                .refreshTokenExpireTime(jwtTokenDto.getRefreshTokenExpireTime())
-                .build();
+                    .grantType(jwtTokenDto.getGrantType())
+                    .accessToken(jwtTokenDto.getAccessToken())
+                    .refreshToken(jwtTokenDto.getRefreshToken())
+                    .accessTokenExpireTime(jwtTokenDto.getAccessTokenExpireTime())
+                    .refreshTokenExpireTime(jwtTokenDto.getRefreshTokenExpireTime())
+                    .build();
         }
     }
 }

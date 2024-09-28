@@ -21,8 +21,8 @@ public class HealthCheckController implements HealthCheckControllerDocs {
     @GetMapping("/health")
     public ResponseEntity<HealthCheckResponseDto> healthCheck() {
         return ResponseEntity.ok(HealthCheckResponseDto.builder()
-            .health("ok")
-            .activeProfiles(Arrays.asList(environment.getActiveProfiles()))
-            .build());
+                .health("ok")
+                .activeProfiles(Arrays.asList(environment.getActiveProfiles()))
+                .build());
     }
 }

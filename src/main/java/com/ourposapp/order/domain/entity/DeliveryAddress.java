@@ -37,9 +37,9 @@ public class DeliveryAddress {
 
     @Embedded
     @AttributeOverrides({
-        @AttributeOverride(name = "address1", column = @Column(name = "delivery_address1")),
-        @AttributeOverride(name = "address2", column = @Column(name = "delivery_address2")),
-        @AttributeOverride(name = "zipcode", column = @Column(name = "delivery_address_zipcode"))
+            @AttributeOverride(name = "address1", column = @Column(name = "delivery_address1")),
+            @AttributeOverride(name = "address2", column = @Column(name = "delivery_address2")),
+            @AttributeOverride(name = "zipcode", column = @Column(name = "delivery_address_zipcode"))
     })
     private Address address;
 

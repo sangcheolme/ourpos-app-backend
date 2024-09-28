@@ -26,7 +26,7 @@ public class PhoneAuthService {
 
     public void verifyPhoneNumber(String phoneNumber, String authNumber, Long userId) {
         PhoneAuth phoneAuth = phoneAuthRedisRepository.findById(phoneNumber).orElseThrow(
-            () -> new AuthPhoneException(ErrorCode.PHONE_NUMBER_NOT_EXIST));
+                () -> new AuthPhoneException(ErrorCode.PHONE_NUMBER_NOT_EXIST));
 
         String findAuthNumber = phoneAuth.getAuthNumber();
 

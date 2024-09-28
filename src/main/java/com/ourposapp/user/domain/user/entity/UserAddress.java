@@ -39,9 +39,9 @@ public class UserAddress extends BaseTimeEntity {
 
     @Embedded
     @AttributeOverrides({
-        @AttributeOverride(name = "address1", column = @Column(name = "user_address1")),
-        @AttributeOverride(name = "address2", column = @Column(name = "user_address2")),
-        @AttributeOverride(name = "zipcode", column = @Column(name = "user_zipcode"))
+            @AttributeOverride(name = "address1", column = @Column(name = "user_address1")),
+            @AttributeOverride(name = "address2", column = @Column(name = "user_address2")),
+            @AttributeOverride(name = "zipcode", column = @Column(name = "user_zipcode"))
     })
     private Address address;
 

@@ -25,17 +25,17 @@ public class NaverLoginApiServiceImpl implements SocialLoginApiService {
     @Override
     public OAuthAttributes getUserInfo(String accessToken) {
         NaverUserInfoResponseDto naverUserInfo = naverUserInfoClient.getNaverUserInfo(
-            GrantType.BEARER.getType() + " " + accessToken
+                GrantType.BEARER.getType() + " " + accessToken
         );
 
         NaverUserInfoResponseDto.Response naverAccount = naverUserInfo.getResponse();
         String username = NAVER_PREFIX + naverAccount.getId();
 
         return OAuthAttributes.builder()
-            .username(username)
-            .nickname(naverAccount.getNickname())
-            .profile(naverAccount.getProfileImage())
-            .loginType(LoginType.NAVER)
-            .build();
+                .username(username)
+                .nickname(naverAccount.getNickname())
+                .profile(naverAccount.getProfileImage())
+                .loginType(LoginType.NAVER)
+                .build();
     }
 }

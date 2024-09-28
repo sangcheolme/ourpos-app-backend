@@ -19,12 +19,12 @@ public class UserInfoResponseDto {
 
     public static UserInfoResponseDto of(User user) {
         return UserInfoResponseDto.builder()
-            .id(user.getId())
-            .username(user.getUsername())
-            .nickname(user.getNickname())
-            .phoneNumber(user.getProfile() != null ? user.getPhone().getPhoneNumber() : null)
-            .role(user.getRole())
-            .profile(user.getProfile())
-            .build();
+                .id(user.getId())
+                .username(user.getUsername())
+                .nickname(user.getNickname())
+                .phoneNumber(user.getProfile() != null ? user.getPhone().getPhoneNumber() : null)
+                .role(user.getRole())
+                .profile(user.getProfile())
+                .build();
     }
 }

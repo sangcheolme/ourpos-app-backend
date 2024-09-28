@@ -29,33 +29,33 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/api/v1/**")
-            .allowedOrigins(baseUrl)
-            .allowCredentials(true)
-            .allowedMethods(
-                HttpMethod.GET.name(),
-                HttpMethod.POST.name(),
-                HttpMethod.PUT.name(),
-                HttpMethod.PATCH.name(),
-                HttpMethod.DELETE.name(),
-                HttpMethod.OPTIONS.name()
-            );
+                .allowedOrigins(baseUrl)
+                .allowCredentials(true)
+                .allowedMethods(
+                        HttpMethod.GET.name(),
+                        HttpMethod.POST.name(),
+                        HttpMethod.PUT.name(),
+                        HttpMethod.PATCH.name(),
+                        HttpMethod.DELETE.name(),
+                        HttpMethod.OPTIONS.name()
+                );
     }
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry
-            .addInterceptor(new AuthorizationInterceptor(tokenManager))
-            .order(1)
-            .addPathPatterns("/api/v1/**")
-            .excludePathPatterns(
-                "/api/v1/access-token/issue",
-                "/api/v1/logout"
-            );
+                .addInterceptor(new AuthorizationInterceptor(tokenManager))
+                .order(1)
+                .addPathPatterns("/api/v1/**")
+                .excludePathPatterns(
+                        "/api/v1/access-token/issue",
+                        "/api/v1/logout"
+                );
 
         registry
-            .addInterceptor(new AdminAuthorizationInterceptor(tokenManager))
-            .order(2)
-            .addPathPatterns("/api/v1/admin/**");
+                .addInterceptor(new AdminAuthorizationInterceptor(tokenManager))
+                .order(2)
+                .addPathPatterns("/api/v1/admin/**");
 
         // registry
         //     .addInterceptor(new CheckProfileCompleteInterceptor(tokenManager))

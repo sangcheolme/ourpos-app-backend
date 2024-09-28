@@ -59,7 +59,7 @@ public class CategoryOptionGroup {
 
     @Builder
     private CategoryOptionGroup(String name, Category category, Boolean exclusiveYn, String description,
-        List<CategoryOption> categoryOptions) {
+                                List<CategoryOption> categoryOptions) {
         this.category = category;
         this.name = name;
         this.exclusiveYn = exclusiveYn;

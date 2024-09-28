@@ -66,8 +66,8 @@ public abstract class Order extends BaseEntity {
 
     public Integer calculateTotalPrice() {
         return orderDetails.stream()
-            .mapToInt(OrderDetail::getPrice)
-            .sum();
+                .mapToInt(OrderDetail::getPrice)
+                .sum();
     }
 
     public void setCompleteOrderTime(LocalDateTime completedDateTime) {

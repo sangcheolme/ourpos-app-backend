@@ -27,8 +27,7 @@ public enum ErrorCode {
 
     // 회원 주소
     USER_ADDRESS_NOT_EXIST(HttpStatus.BAD_REQUEST, "CA-001", "해당 주소를 찾을 수 없습니다."),
-    USER_ADDRESS_MAX_LIMIT_EXCEEDED(HttpStatus.BAD_REQUEST, "CA-002", "등록할 수 있는 최대 주소 개수를 초과했습니다.");
-    ;
+    USER_ADDRESS_MAX_LIMIT_EXCEEDED(HttpStatus.BAD_REQUEST, "CA-002", "등록할 수 있는 최대 주소 개수를 초과했습니다.");;
 
     ErrorCode(HttpStatus httpStatus, String errorCode, String message) {
         this.httpStatus = httpStatus;

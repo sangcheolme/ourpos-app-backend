@@ -51,7 +51,8 @@ public class SocialAuthenticationService implements AuthenticationService {
         }
 
         // 토큰 생성
-        jwtTokenDto = tokenManager.createJwtTokenDto(oauthUser.getId(), oauthUser.getRole(), oauthUser.getIsPhoneVerified());
+        jwtTokenDto = tokenManager.createJwtTokenDto(oauthUser.getId(), oauthUser.getRole(),
+                oauthUser.getIsPhoneVerified());
         oauthUser.updateRefreshToken(jwtTokenDto);
 
         return AuthTokenDto.Response.of(jwtTokenDto);
@@ -67,7 +68,7 @@ public class SocialAuthenticationService implements AuthenticationService {
             throw new AuthenticationException(ErrorCode.NOT_ACCESS_TOKEN_TYPE);
         }
 
-        Long userId = Long.valueOf((Integer)tokenClaims.get("userId"));
+        Long userId = Long.valueOf((Integer) tokenClaims.get("userId"));
         User user = userService.findUserById(userId);
         user.expireRefreshToken(LocalDateTime.now());
     }

@@ -11,6 +11,6 @@ public interface NaverTokenClient {
 
     @PostMapping(value = "/oauth2.0/token", consumes = "application/json")
     NaverTokenDto.Response requestNaverToken(
-        @SpringQueryMap NaverTokenDto.Request request
+            @SpringQueryMap NaverTokenDto.Request request
     );
 }

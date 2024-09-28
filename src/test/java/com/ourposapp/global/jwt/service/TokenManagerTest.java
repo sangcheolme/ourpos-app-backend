@@ -8,9 +8,9 @@ import java.time.Instant;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import com.ourposapp.user.domain.user.constant.Role;
 import com.ourposapp.global.error.exception.AuthenticationException;
 import com.ourposapp.global.jwt.dto.JwtTokenDto;
+import com.ourposapp.user.domain.user.constant.Role;
 
 class TokenManagerTest {
 
@@ -19,11 +19,11 @@ class TokenManagerTest {
     void expiredToken() throws InterruptedException {
         // given
         TokenManager tokenManager = new TokenManager
-            (
-                "1",
-                "1",
-                getTokenSecret()
-            );
+                (
+                        "1",
+                        "1",
+                        getTokenSecret()
+                );
         JwtTokenDto jwtTokenDto = tokenManager.createJwtTokenDto(1L, Role.ROLE_USER, true);
 
         // when
@@ -31,8 +31,8 @@ class TokenManagerTest {
 
         // then
         assertThatThrownBy(() -> tokenManager.validateToken(jwtTokenDto.getAccessToken()))
-            .isInstanceOf(AuthenticationException.class)
-            .hasMessage("토큰이 만료되었습니다.");
+                .isInstanceOf(AuthenticationException.class)
+                .hasMessage("토큰이 만료되었습니다.");
     }
 
     @DisplayName("잘못된 토큰인 경우 예외가 발생한다.")
@@ -40,19 +40,19 @@ class TokenManagerTest {
     void invalidToken() {
         // given
         TokenManager tokenManager = new TokenManager
-            (
-                "1",
-                "1",
-                getTokenSecret()
-            );
+                (
+                        "1",
+                        "1",
+                        getTokenSecret()
+                );
 
         // when
         String invalidToken = "123123";
 
         // then
         assertThatThrownBy(() -> tokenManager.validateToken(invalidToken))
-            .isInstanceOf(AuthenticationException.class)
-            .hasMessage("유효하지 않은 토큰입니다.");
+                .isInstanceOf(AuthenticationException.class)
+                .hasMessage("유효하지 않은 토큰입니다.");
     }
 
     @DisplayName("AccessToken과 RefreshToken의 만료 시간을 각각 밀리초 단위로 검증할 수 있다.")
@@ -66,9 +66,9 @@ class TokenManagerTest {
         long refreshTokenExpireMillis = Duration.ofDays(refreshTokenExpireDays).toMillis();     // 7일 -> 밀리초
 
         TokenManager tokenManager = new TokenManager(
-            String.valueOf(accessTokenExpireMillis),
-            String.valueOf(refreshTokenExpireMillis),
-            getTokenSecret()
+                String.valueOf(accessTokenExpireMillis),
+                String.valueOf(refreshTokenExpireMillis),
+                getTokenSecret()
         );
 
         // when

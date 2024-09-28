@@ -20,7 +20,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.Singular;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -45,7 +44,7 @@ public class OrderOptionGroup {
     private List<OrderOption> orderOptions = new ArrayList<>();
 
     @Builder
-    private OrderOptionGroup(String name, @Singular List<OrderOption> orderOptions) {
+    private OrderOptionGroup(String name, List<OrderOption> orderOptions) {
         this.name = name;
         for (OrderOption orderOption : orderOptions) {
             addOrderOption(orderOption);
@@ -60,7 +59,7 @@ public class OrderOptionGroup {
 
     public int calculatePrice() {
         return orderOptions.stream()
-            .mapToInt(OrderOption::getPrice)
-            .sum();
+                .mapToInt(OrderOption::getPrice)
+                .sum();
     }
 }

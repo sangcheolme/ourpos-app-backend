@@ -17,11 +17,11 @@ import io.swagger.v3.oas.models.security.SecurityScheme;
 
 @OpenAPI30
 @OpenAPIDefinition(
-    info = @Info(
-        title = "OURPOS",
-        version = "1.0.0",
-        description = "OURPOS 주문 관리 시스템 API"
-    )
+        info = @Info(
+                title = "OURPOS",
+                version = "1.0.0",
+                description = "OURPOS 주문 관리 시스템 API"
+        )
 )
 @Configuration
 public class SwaggerConfig {
@@ -33,31 +33,31 @@ public class SwaggerConfig {
     @Bean
     public GroupedOpenApi groupedOpenApi() {
         return GroupedOpenApi.builder()
-            .group("OURPOS-APP")
-            .packagesToScan("com.ourposapp.api")
-            .pathsToMatch("/api/v1/**")
-            .pathsToExclude("/api/v1/admin/**")
-            .build();
+                .group("OURPOS-APP")
+                .packagesToScan("com.ourposapp.api")
+                .pathsToMatch("/api/v1/**")
+                .pathsToExclude("/api/v1/admin/**")
+                .build();
     }
 
     @Bean
     public GroupedOpenApi groupedOpenAdminApi() {
         return GroupedOpenApi.builder()
-            .group("OURPOS-ADMIN")
-            .packagesToScan("com.ourposapp.api")
-            .pathsToMatch("/api/v1/admin/**")
-            .build();
+                .group("OURPOS-ADMIN")
+                .packagesToScan("com.ourposapp.api")
+                .pathsToMatch("/api/v1/admin/**")
+                .build();
     }
 
     @Bean
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
-            .addSecurityItem(new SecurityRequirement().addList("Authorization"))
-            .components(new Components()
-                .addSecuritySchemes("Authorization",
-                    new SecurityScheme()
-                        .type(SecurityScheme.Type.HTTP)
-                        .scheme("bearer")
-                        .bearerFormat("JWT")));
+                .addSecurityItem(new SecurityRequirement().addList("Authorization"))
+                .components(new Components()
+                        .addSecuritySchemes("Authorization",
+                                new SecurityScheme()
+                                        .type(SecurityScheme.Type.HTTP)
+                                        .scheme("bearer")
+                                        .bearerFormat("JWT")));
     }
 }

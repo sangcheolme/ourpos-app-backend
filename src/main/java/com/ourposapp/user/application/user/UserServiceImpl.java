@@ -42,7 +42,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void updatePhoneNumber(Long userId, String phoneNumber) {
         User user = userRepository.findById(userId)
-            .orElseThrow(() -> new EntityNotFoundException(ErrorCode.USER_NOT_EXIST));
+                .orElseThrow(() -> new EntityNotFoundException(ErrorCode.USER_NOT_EXIST));
 
         user.updatePhone(Phone.of(phoneNumber));
     }
@@ -51,7 +51,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void changeDefaultUserAddress(Long userId, Long newDefaultAddressId) {
         User user = userRepository.findUserWithAddress(userId)
-            .orElseThrow(() -> new EntityNotFoundException(ErrorCode.USER_NOT_EXIST));
+                .orElseThrow(() -> new EntityNotFoundException(ErrorCode.USER_NOT_EXIST));
 
         UserAddress newDefaultAddress = user.getUserAddress(newDefaultAddressId);
         UserAddress currentDefaultAddress = user.getDefaultAddress();
@@ -65,7 +65,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findUserById(Long userId) {
         return userRepository.findById(userId)
-            .orElseThrow(() -> new EntityNotFoundException(ErrorCode.USER_NOT_EXIST));
+                .orElseThrow(() -> new EntityNotFoundException(ErrorCode.USER_NOT_EXIST));
     }
 
     @Override
@@ -76,7 +76,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findUserByRefreshToken(String refreshToken) {
         User user = userRepository.findByRefreshToken(refreshToken)
-            .orElseThrow(() -> new AuthenticationException(ErrorCode.REFRESH_TOKEN_NOT_FOUND));
+                .orElseThrow(() -> new AuthenticationException(ErrorCode.REFRESH_TOKEN_NOT_FOUND));
 
         LocalDateTime tokenExpirationTime = user.getTokenExpirationTime();
         if (tokenExpirationTime.isBefore(LocalDateTime.now())) {

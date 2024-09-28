@@ -26,19 +26,19 @@ public class KakaoLoginApiServiceImpl implements SocialLoginApiService {
     @Override
     public OAuthAttributes getUserInfo(String accessToken) {
         KakaoUserInfoResponseDto kakaoUserInfoResponseDto = kakaoUserInfoClient.getKakaoUserInfo(
-            CONTENT_TYPE,
-            GrantType.BEARER.getType() + " " + accessToken,
-            true
+                CONTENT_TYPE,
+                GrantType.BEARER.getType() + " " + accessToken,
+                true
         );
 
         KakaoUserInfoResponseDto.KakaoAccount kakaoAccount = kakaoUserInfoResponseDto.getKakaoAccount();
         String username = KAKAO_PREFIX + kakaoUserInfoResponseDto.getId();
 
         return OAuthAttributes.builder()
-            .username(username)
-            .nickname(kakaoAccount.getProfile().getNickname())
-            .profile(kakaoAccount.getProfile().getThumbnailImageUrl())
-            .loginType(LoginType.KAKAO)
-            .build();
+                .username(username)
+                .nickname(kakaoAccount.getProfile().getNickname())
+                .profile(kakaoAccount.getProfile().getThumbnailImageUrl())
+                .loginType(LoginType.KAKAO)
+                .build();
     }
 }

@@ -88,16 +88,16 @@ public class User extends BaseTimeEntity {
 
     public UserAddress getDefaultAddress() {
         return userAddresses.stream()
-            .filter(com.ourposapp.user.domain.user.entity.UserAddress::getDefaultYn)
-            .findFirst()
-            .orElseThrow(() -> new EntityNotFoundException(ErrorCode.USER_ADDRESS_NOT_EXIST));
+                .filter(com.ourposapp.user.domain.user.entity.UserAddress::getDefaultYn)
+                .findFirst()
+                .orElseThrow(() -> new EntityNotFoundException(ErrorCode.USER_ADDRESS_NOT_EXIST));
     }
 
     public UserAddress getUserAddress(Long userAddressId) {
         return userAddresses.stream()
-            .filter(userAddress -> userAddress.getId().equals(userAddressId))
-            .findFirst()
-            .orElseThrow(() -> new EntityNotFoundException(ErrorCode.USER_ADDRESS_NOT_EXIST));
+                .filter(userAddress -> userAddress.getId().equals(userAddressId))
+                .findFirst()
+                .orElseThrow(() -> new EntityNotFoundException(ErrorCode.USER_ADDRESS_NOT_EXIST));
     }
 
     public void addUserAddress(com.ourposapp.user.domain.user.entity.UserAddress userAddress) {

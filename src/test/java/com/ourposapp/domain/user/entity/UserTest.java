@@ -31,14 +31,14 @@ class UserTest {
 
     private UserAddress createUserAddress() {
         return UserAddress.builder()
-            .address(Address.of("서울시 중구 1번길 10", "현대아파트 101호", "11111"))
-            .build();
+                .address(Address.of("서울시 중구 1번길 10", "현대아파트 101호", "11111"))
+                .build();
     }
 
     private User createUser() {
         return User.builder()
-            .nickname("test")
-            .build();
+                .nickname("test")
+                .build();
     }
 
 }

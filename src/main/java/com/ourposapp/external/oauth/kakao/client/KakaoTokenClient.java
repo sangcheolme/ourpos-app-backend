@@ -12,7 +12,7 @@ public interface KakaoTokenClient {
 
     @PostMapping(value = "/oauth/token", consumes = "application/json")
     KakaoTokenDto.Response requestKakaoToken(
-        @RequestHeader("Content-Type") String contentType,
-        @SpringQueryMap KakaoTokenDto.Request request
+            @RequestHeader("Content-Type") String contentType,
+            @SpringQueryMap KakaoTokenDto.Request request
     );
 }

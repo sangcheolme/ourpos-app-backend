@@ -19,10 +19,11 @@ public class CheckProfileCompleteInterceptor implements HandlerInterceptor {
     private final TokenManager tokenManager;
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws
+            Exception {
         String accessToken = CookieUtils.getAccessToken(request);
         Claims tokenClaims = tokenManager.getTokenClaims(accessToken);
-        Boolean isPhoneVerified = (Boolean)tokenClaims.get("isPhoneVerified");
+        Boolean isPhoneVerified = (Boolean) tokenClaims.get("isPhoneVerified");
         if (!isPhoneVerified) {
             throw new IncompleteProfileException(ErrorCode.PHONE_VERIFICATION_REQUIRED);
         }

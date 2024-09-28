@@ -25,29 +25,31 @@ public class GlobalExceptionHandler {
         log.error("handleBindException", e);
         ErrorResponse errorResponse = ErrorResponse.of(HttpStatus.BAD_REQUEST.toString(), e.getBindingResult());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-            .body(errorResponse);
+                .body(errorResponse);
     }
 
     /**
      * 주로 @RequestParam enum으로 binding 못했을 경우 발생
      */
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
-    protected ResponseEntity<ErrorResponse> handleMethodArgumentTypeMismatchException(MethodArgumentTypeMismatchException e) {
+    protected ResponseEntity<ErrorResponse> handleMethodArgumentTypeMismatchException(
+            MethodArgumentTypeMismatchException e) {
         log.error("handleMethodArgumentTypeMismatchException", e);
         ErrorResponse errorResponse = ErrorResponse.of(HttpStatus.BAD_REQUEST.toString(), e.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-            .body(errorResponse);
+                .body(errorResponse);
     }
 
     /**
      * 지원하지 않은 HTTP method 호출 할 경우 발생
      */
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
-    protected ResponseEntity<ErrorResponse> handleHttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException e) {
+    protected ResponseEntity<ErrorResponse> handleHttpRequestMethodNotSupportedException(
+            HttpRequestMethodNotSupportedException e) {
         log.error("handleHttpRequestMethodNotSupportedException", e);
         ErrorResponse errorResponse = ErrorResponse.of(HttpStatus.METHOD_NOT_ALLOWED.toString(), e.getMessage());
         return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED)
-            .body(errorResponse);
+                .body(errorResponse);
     }
 
     /**
@@ -58,7 +60,7 @@ public class GlobalExceptionHandler {
         log.error("NoResourceFoundException", e);
         ErrorResponse errorResponse = ErrorResponse.of(HttpStatus.NOT_FOUND.toString(), e.getMessage());
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
-            .body(errorResponse);
+                .body(errorResponse);
     }
 
     /**
@@ -69,7 +71,7 @@ public class GlobalExceptionHandler {
         log.error("BusinessException", e);
         ErrorResponse errorResponse = ErrorResponse.of(e.getErrorCode().getErrorCode(), e.getMessage());
         return ResponseEntity.status(e.getErrorCode().getHttpStatus())
-            .body(errorResponse);
+                .body(errorResponse);
     }
 
     /**
@@ -80,6 +82,6 @@ public class GlobalExceptionHandler {
         log.error("Exception", e);
         ErrorResponse errorResponse = ErrorResponse.of(HttpStatus.INTERNAL_SERVER_ERROR.toString(), e.getMessage());
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-            .body(errorResponse);
+                .body(errorResponse);
     }
 }

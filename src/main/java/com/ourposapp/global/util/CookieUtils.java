@@ -17,16 +17,16 @@ public class CookieUtils {
 
     public static ResponseCookie createAccessToken(String accessToken) {
         return ResponseCookie.from(ACCESS_TOKEN_COOKIE_NAME, accessToken)
-            .httpOnly(true)
-            .path("/")
-            .build();
+                .httpOnly(true)
+                .path("/")
+                .build();
     }
 
     public static ResponseCookie createRefreshToken(String refreshToken) {
         return ResponseCookie.from(REFRESH_TOKEN_COOKIE_NANE, refreshToken)
-            .httpOnly(true)
-            .path("/")
-            .build();
+                .httpOnly(true)
+                .path("/")
+                .build();
     }
 
     public static String getAccessToken(HttpServletRequest request) {
@@ -36,9 +36,9 @@ public class CookieUtils {
         }
 
         return Arrays.stream(cookies)
-            .filter(cookie -> ACCESS_TOKEN_COOKIE_NAME.equals(cookie.getName()))
-            .findFirst()
-            .orElseThrow(() -> new AuthenticationException(ErrorCode.NOT_EXIST_AUTHORIZATION)).getValue();
+                .filter(cookie -> ACCESS_TOKEN_COOKIE_NAME.equals(cookie.getName()))
+                .findFirst()
+                .orElseThrow(() -> new AuthenticationException(ErrorCode.NOT_EXIST_AUTHORIZATION)).getValue();
     }
 
     public static String getRefreshToken(HttpServletRequest request) {
@@ -48,8 +48,8 @@ public class CookieUtils {
         }
 
         return Arrays.stream(cookies)
-            .filter(cookie -> REFRESH_TOKEN_COOKIE_NANE.equals(cookie.getName()))
-            .findFirst()
-            .orElseThrow(() -> new AuthenticationException(ErrorCode.NOT_EXIST_AUTHORIZATION)).getValue();
+                .filter(cookie -> REFRESH_TOKEN_COOKIE_NANE.equals(cookie.getName()))
+                .findFirst()
+                .orElseThrow(() -> new AuthenticationException(ErrorCode.NOT_EXIST_AUTHORIZATION)).getValue();
     }
 }

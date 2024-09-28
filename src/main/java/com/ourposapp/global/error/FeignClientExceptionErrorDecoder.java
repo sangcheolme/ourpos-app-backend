@@ -21,12 +21,12 @@ public class FeignClientExceptionErrorDecoder implements ErrorDecoder {
         HttpStatus httpStatus = HttpStatus.valueOf(response.status());
         if (httpStatus.is5xxServerError()) {
             return new RetryableException(
-                response.status(),
-                exception.getMessage(),
-                response.request().httpMethod(),
-                exception,
-                (Long)null,
-                response.request()
+                    response.status(),
+                    exception.getMessage(),
+                    response.request().httpMethod(),
+                    exception,
+                    (Long) null,
+                    response.request()
             );
         }
 

@@ -6,9 +6,9 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import com.ourposapp.common.model.Address;
+import com.ourposapp.global.error.exception.InvalidAddressException;
 import com.ourposapp.user.domain.user.entity.User;
 import com.ourposapp.user.domain.user.entity.UserAddress;
-import com.ourposapp.global.error.exception.InvalidAddressException;
 
 class UserAddressTest {
 
@@ -86,8 +86,8 @@ class UserAddressTest {
 
     private UserAddress createUserAddress() {
         return UserAddress.builder()
-            .address(Address.of("서울시 중구 1번길 10", "현대아파트 101호", "11111"))
-            .build();
+                .address(Address.of("서울시 중구 1번길 10", "현대아파트 101호", "11111"))
+                .build();
     }
 
     private User createUser() {

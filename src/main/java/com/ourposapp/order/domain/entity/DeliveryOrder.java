@@ -103,6 +103,6 @@ public class DeliveryOrder extends Order {
 
     private boolean isCancelable() {
         return this.status != DeliveryStatus.PAYMENT_PENDING
-            && this.status != DeliveryStatus.WAITING;
+                && this.status != DeliveryStatus.WAITING;
     }
 }

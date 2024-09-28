@@ -87,9 +87,9 @@ class UserServiceTest {
 
         // then
         assertThatThrownBy(
-            () -> userService.changeDefaultUserAddress(user1.getId(), userAddress4.getId()))
-            .isInstanceOf(EntityNotFoundException.class)
-            .hasMessage(ErrorCode.USER_ADDRESS_NOT_EXIST.getMessage());
+                () -> userService.changeDefaultUserAddress(user1.getId(), userAddress4.getId()))
+                .isInstanceOf(EntityNotFoundException.class)
+                .hasMessage(ErrorCode.USER_ADDRESS_NOT_EXIST.getMessage());
     }
 
     @DisplayName("이미 기본 주소인 주소를 기본 주소로 변경하려고 하면 예외가 발생한다.")
@@ -108,27 +108,27 @@ class UserServiceTest {
 
         // then
         assertThatThrownBy(
-            () -> userService.changeDefaultUserAddress(user.getId(), userAddress1.getId()))
-            .isInstanceOf(IllegalArgumentException.class);
+                () -> userService.changeDefaultUserAddress(user.getId(), userAddress1.getId()))
+                .isInstanceOf(IllegalArgumentException.class);
     }
 
     private UserAddress findUserAddress(List<UserAddress> userAddresses, Long userId) {
         return userAddresses.stream()
-            .filter(userAddress -> userAddress.getId().equals(userId))
-            .findFirst()
-            .orElseThrow();
+                .filter(userAddress -> userAddress.getId().equals(userId))
+                .findFirst()
+                .orElseThrow();
     }
 
     private UserAddress createUserAddress() {
         return UserAddress.builder()
-            .address(Address.of("서울시 중구 1번길 10", "현대아파트 101호", "11111"))
-            .build();
+                .address(Address.of("서울시 중구 1번길 10", "현대아파트 101호", "11111"))
+                .build();
     }
 
     private User createUser(String nickname) {
         return User.builder()
-            .nickname(nickname)
-            .build();
+                .nickname(nickname)
+                .build();
     }
 
     private void clearPersistenceContext() {

@@ -49,10 +49,10 @@ public class OAuthKakaoController implements OAuthKakaoControllerDocs {
     @GetMapping("/authorization/kakao")
     public void kakaoLogin(HttpServletResponse response) throws IOException {
         String kakaoAuthUrl = UriComponentsBuilder.fromHttpUrl("https://kauth.kakao.com/oauth/authorize")
-            .queryParam("client_id", clientId)
-            .queryParam("redirect_uri", redirectUri)
-            .queryParam("response_type", RESPONSE_TYPE)
-            .build().toUriString();
+                .queryParam("client_id", clientId)
+                .queryParam("redirect_uri", redirectUri)
+                .queryParam("response_type", RESPONSE_TYPE)
+                .build().toUriString();
 
         response.sendRedirect(kakaoAuthUrl);
     }
@@ -60,12 +60,12 @@ public class OAuthKakaoController implements OAuthKakaoControllerDocs {
     @GetMapping("/code/kakao")
     public void kakaoLoginCallback(String code, HttpServletResponse response) throws IOException {
         KakaoTokenDto.Request kakaoTokenRequestDto = KakaoTokenDto.Request.builder()
-            .grant_type(AUTHORIZATION_CODE)
-            .client_id(clientId)
-            .client_secret(clientSecret)
-            .redirect_uri(redirectUri)
-            .code(code)
-            .build();
+                .grant_type(AUTHORIZATION_CODE)
+                .client_id(clientId)
+                .client_secret(clientSecret)
+                .redirect_uri(redirectUri)
+                .code(code)
+                .build();
 
         KakaoTokenDto.Response tokenResponse = kakaoTokenClient.requestKakaoToken(CONTENT_TYPE, kakaoTokenRequestDto);
         String accessToken = tokenResponse.getAccess_token();

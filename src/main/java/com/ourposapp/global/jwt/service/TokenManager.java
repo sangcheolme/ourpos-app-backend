@@ -6,12 +6,12 @@ import java.util.Date;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
-import com.ourposapp.user.domain.user.constant.Role;
 import com.ourposapp.global.error.ErrorCode;
 import com.ourposapp.global.error.exception.AuthenticationException;
 import com.ourposapp.global.jwt.constant.GrantType;
 import com.ourposapp.global.jwt.constant.TokenType;
 import com.ourposapp.global.jwt.dto.JwtTokenDto;
+import com.ourposapp.user.domain.user.constant.Role;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -35,12 +35,12 @@ public class TokenManager {
         String refreshToken = createRefreshToken(userId, role, isPhoneVerified, refreshTokenExpireTime);
 
         return JwtTokenDto.builder()
-            .grantType(GrantType.BEARER.getType())
-            .accessToken(accessToken)
-            .accessTokenExpireTime(accessTokenExpireTime)
-            .refreshToken(refreshToken)
-            .refreshTokenExpireTime(refreshTokenExpireTime)
-            .build();
+                .grantType(GrantType.BEARER.getType())
+                .accessToken(accessToken)
+                .accessTokenExpireTime(accessTokenExpireTime)
+                .refreshToken(refreshToken)
+                .refreshTokenExpireTime(refreshTokenExpireTime)
+                .build();
     }
 
     public Date createAccessTokenExpireTime() {
@@ -53,36 +53,36 @@ public class TokenManager {
 
     public String createAccessToken(Long userId, Role role, Boolean isPhoneVerified, Date expirationTime) {
         return Jwts.builder()
-            .subject(TokenType.ACCESS.name())
-            .issuedAt(new Date(System.currentTimeMillis()))
-            .expiration(expirationTime)
-            .claim("userId", userId)
-            .claim("role", role)
-            .claim("isPhoneVerified", isPhoneVerified)
-            .signWith(getSecretKey())
-            .header().type("JWT").and()
-            .compact();
+                .subject(TokenType.ACCESS.name())
+                .issuedAt(new Date(System.currentTimeMillis()))
+                .expiration(expirationTime)
+                .claim("userId", userId)
+                .claim("role", role)
+                .claim("isPhoneVerified", isPhoneVerified)
+                .signWith(getSecretKey())
+                .header().type("JWT").and()
+                .compact();
     }
 
     public String createRefreshToken(Long userId, Role role, Boolean isPhoneVerified, Date expirationTime) {
         return Jwts.builder()
-            .subject(TokenType.REFRESH.name())
-            .issuedAt(new Date(System.currentTimeMillis()))
-            .expiration(expirationTime)
-            .claim("userId", userId)
-            .claim("role", role)
-            .claim("isPhoneVerified", isPhoneVerified)
-            .signWith(getSecretKey())
-            .header().type("JWT").and()
-            .compact();
+                .subject(TokenType.REFRESH.name())
+                .issuedAt(new Date(System.currentTimeMillis()))
+                .expiration(expirationTime)
+                .claim("userId", userId)
+                .claim("role", role)
+                .claim("isPhoneVerified", isPhoneVerified)
+                .signWith(getSecretKey())
+                .header().type("JWT").and()
+                .compact();
     }
 
     public void validateToken(String token) {
         try {
             Jwts.parser()
-                .verifyWith(getSecretKey())
-                .build()
-                .parseSignedClaims(token);
+                    .verifyWith(getSecretKey())
+                    .build()
+                    .parseSignedClaims(token);
         } catch (ExpiredJwtException e) {
             log.info("token 만료", e);
             throw new AuthenticationException(ErrorCode.TOKEN_EXPIRED);
@@ -96,10 +96,10 @@ public class TokenManager {
         Claims claims;
         try {
             claims = Jwts.parser()
-                .verifyWith(getSecretKey())
-                .build()
-                .parseSignedClaims(token)
-                .getPayload();
+                    .verifyWith(getSecretKey())
+                    .build()
+                    .parseSignedClaims(token)
+                    .getPayload();
         } catch (Exception e) {
             log.info("유효하지 않은 token", e);
             throw new AuthenticationException(ErrorCode.TOKEN_INVALID);
@@ -109,6 +109,6 @@ public class TokenManager {
 
     private SecretKey getSecretKey() {
         return new SecretKeySpec(tokenSecret.getBytes(StandardCharsets.UTF_8),
-            Jwts.SIG.HS256.key().build().getAlgorithm());
+                Jwts.SIG.HS256.key().build().getAlgorithm());
     }
 }
