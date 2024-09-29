@@ -10,7 +10,6 @@ import com.ourposapp.common.model.Phone;
 import com.ourposapp.global.error.ErrorCode;
 import com.ourposapp.global.error.exception.AuthenticationException;
 import com.ourposapp.global.error.exception.EntityNotFoundException;
-import com.ourposapp.user.application.validator.UserValidator;
 import com.ourposapp.user.domain.user.entity.User;
 import com.ourposapp.user.domain.user.repository.UserRepository;
 
@@ -22,7 +21,6 @@ import lombok.RequiredArgsConstructor;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
-    private final UserValidator userValidator;
 
     @Transactional
     @Override
