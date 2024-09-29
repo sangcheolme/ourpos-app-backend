@@ -24,6 +24,7 @@ import com.ourposapp.global.error.exception.EntityNotFoundException;
 import com.ourposapp.global.error.exception.InvalidAddressException;
 import com.ourposapp.global.jwt.dto.JwtTokenDto;
 import com.ourposapp.global.util.DateTimeUtils;
+import com.ourposapp.user.application.user.dto.UserAddressUpdateDto;
 import com.ourposapp.user.domain.user.constant.LoginType;
 import com.ourposapp.user.domain.user.constant.Role;
 
@@ -86,21 +87,7 @@ public class User extends BaseTimeEntity {
         this.isPhoneVerified = false;
     }
 
-    public UserAddress getDefaultAddress() {
-        return userAddresses.stream()
-                .filter(com.ourposapp.user.domain.user.entity.UserAddress::getDefaultYn)
-                .findFirst()
-                .orElseThrow(() -> new EntityNotFoundException(ErrorCode.USER_ADDRESS_NOT_EXIST));
-    }
-
-    public UserAddress getUserAddress(Long userAddressId) {
-        return userAddresses.stream()
-                .filter(userAddress -> userAddress.getId().equals(userAddressId))
-                .findFirst()
-                .orElseThrow(() -> new EntityNotFoundException(ErrorCode.USER_ADDRESS_NOT_EXIST));
-    }
-
-    public void addUserAddress(com.ourposapp.user.domain.user.entity.UserAddress userAddress) {
+    public void addUserAddress(UserAddress userAddress) {
         if (hasReachedMaxAddresses()) {
             throw new InvalidAddressException(ErrorCode.USER_ADDRESS_MAX_LIMIT_EXCEEDED);
         }
@@ -111,6 +98,43 @@ public class User extends BaseTimeEntity {
 
         userAddresses.add(userAddress);
         userAddress.addUser(this);
+    }
+
+    public void updateUserAddress(UserAddressUpdateDto userAddressUpdateDto) {
+        UserAddress userAddress = getUserAddress(userAddressUpdateDto.getUserAddressId());
+        userAddress.update(
+                userAddressUpdateDto.getAddressName(),
+                userAddress.getReceiverName(),
+                userAddressUpdateDto.getPhoneNumber(),
+                userAddressUpdateDto.getAddress1(),
+                userAddressUpdateDto.getAddress2(),
+                userAddressUpdateDto.getZipcode()
+        );
+    }
+
+    public void changeDefaultUserAddress(Long newDefaultAddressId) {
+        UserAddress newDefaultAddress = getUserAddress(newDefaultAddressId);
+        if (newDefaultAddress.getDefaultYn()) {
+            throw new InvalidAddressException(ErrorCode.USER_ADDRESS_ALREADY_DEFAULT);
+        }
+        UserAddress currentDefaultAddress = getDefaultAddress();
+
+        currentDefaultAddress.unsetDefault();
+        newDefaultAddress.setAsDefault();
+    }
+
+    public UserAddress getUserAddress(Long userAddressId) {
+        return userAddresses.stream()
+                .filter(userAddress -> userAddress.getId().equals(userAddressId))
+                .findFirst()
+                .orElseThrow(() -> new EntityNotFoundException(ErrorCode.USER_ADDRESS_NOT_EXIST));
+    }
+
+    public UserAddress getDefaultAddress() {
+        return userAddresses.stream()
+                .filter(com.ourposapp.user.domain.user.entity.UserAddress::getDefaultYn)
+                .findFirst()
+                .orElseThrow(() -> new EntityNotFoundException(ErrorCode.USER_ADDRESS_NOT_EXIST));
     }
 
     private boolean hasReachedMaxAddresses() {

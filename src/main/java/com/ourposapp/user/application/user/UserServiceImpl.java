@@ -12,7 +12,6 @@ import com.ourposapp.global.error.exception.AuthenticationException;
 import com.ourposapp.global.error.exception.EntityNotFoundException;
 import com.ourposapp.user.application.validator.UserValidator;
 import com.ourposapp.user.domain.user.entity.User;
-import com.ourposapp.user.domain.user.entity.UserAddress;
 import com.ourposapp.user.domain.user.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -39,27 +38,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Transactional
-    @Override
     public void updatePhoneNumber(Long userId, String phoneNumber) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new EntityNotFoundException(ErrorCode.USER_NOT_EXIST));
 
         user.updatePhone(Phone.of(phoneNumber));
-    }
-
-    @Transactional
-    @Override
-    public void changeDefaultUserAddress(Long userId, Long newDefaultAddressId) {
-        User user = userRepository.findUserWithAddress(userId)
-                .orElseThrow(() -> new EntityNotFoundException(ErrorCode.USER_NOT_EXIST));
-
-        UserAddress newDefaultAddress = user.getUserAddress(newDefaultAddressId);
-        UserAddress currentDefaultAddress = user.getDefaultAddress();
-
-        userValidator.checkIfAlreadyDefaultAddress(newDefaultAddress);
-
-        currentDefaultAddress.unsetDefault();
-        newDefaultAddress.setAsDefault();
     }
 
     @Override

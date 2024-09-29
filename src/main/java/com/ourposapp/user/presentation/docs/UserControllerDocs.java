@@ -1,6 +1,5 @@
 package com.ourposapp.user.presentation.docs;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.ourposapp.global.resolver.login.Login;
@@ -24,5 +23,5 @@ public interface UserControllerDocs {
             @ApiResponse(responseCode = "C-004", description = "휴대폰 인증을 완료해 주세요."),
     })
     @GetMapping("/info")
-    ResponseEntity<Result<UserInfoResponseDto>> getUserInfo(@Login UserInfoDto userInfoDto);
+    Result<UserInfoResponseDto> getUserInfo(@Login UserInfoDto userInfoDto);
 }

@@ -59,7 +59,7 @@ public class UserAddress extends BaseTimeEntity {
     private Boolean defaultYn;
 
     @Builder
-    public UserAddress(User user, Address address, String name, String receiverName, Phone phone) {
+    private UserAddress(User user, Address address, String name, String receiverName, Phone phone) {
         this.user = user;
         this.address = address;
         this.name = name;
@@ -80,11 +80,11 @@ public class UserAddress extends BaseTimeEntity {
         this.defaultYn = false;
     }
 
-    public void update(String name, String receiverName, Phone phone, Address address) {
+    void update(String name, String receiverName, String phoneNumber, String address1, String address2, String zipcode) {
         this.name = name;
         this.receiverName = receiverName;
-        this.phone = phone;
-        this.address = address;
+        this.phone = Phone.of(phoneNumber);
+        this.address = Address.of(address1, address2, zipcode);
     }
 
 }

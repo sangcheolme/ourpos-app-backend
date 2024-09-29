@@ -1,4 +1,4 @@
-package com.ourposapp.api.user.service;
+package com.ourposapp.user.application.user;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -16,7 +16,9 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ourposapp.common.model.Address;
 import com.ourposapp.global.error.ErrorCode;
 import com.ourposapp.global.error.exception.EntityNotFoundException;
-import com.ourposapp.user.application.user.UserService;
+import com.ourposapp.global.error.exception.InvalidAddressException;
+import com.ourposapp.user.application.user.dto.UserAddressRequestDto;
+import com.ourposapp.user.application.user.dto.UserAddressResponseDto;
 import com.ourposapp.user.domain.user.entity.User;
 import com.ourposapp.user.domain.user.entity.UserAddress;
 import com.ourposapp.user.domain.user.repository.UserRepository;
@@ -24,16 +26,16 @@ import com.ourposapp.user.domain.user.repository.UserRepository;
 @ActiveProfiles("test")
 @Transactional
 @SpringBootTest
-class UserServiceTest {
-
-    @Autowired
-    private UserService userService;
+class UserAddressServiceTest {
 
     @Autowired
     private UserRepository userRepository;
 
     @Autowired
     private EntityManager em;
+
+    @Autowired
+    private UserAddressService userAddressService;
 
     @DisplayName("회원은 기본 주소를 변경할 수 있다.")
     @Test
@@ -53,7 +55,7 @@ class UserServiceTest {
 
         // when
         // 기본주소 변경: 1 -> 2
-        userService.changeDefaultUserAddress(user.getId(), userAddress2.getId());
+        userAddressService.changeDefaultUserAddress(user.getId(), userAddress2.getId());
         clearPersistenceContext();
 
         List<UserAddress> userAddresses = userRepository.findUserAddresses(user.getId());
@@ -87,7 +89,7 @@ class UserServiceTest {
 
         // then
         assertThatThrownBy(
-                () -> userService.changeDefaultUserAddress(user1.getId(), userAddress4.getId()))
+                () -> userAddressService.changeDefaultUserAddress(user1.getId(), userAddress4.getId()))
                 .isInstanceOf(EntityNotFoundException.class)
                 .hasMessage(ErrorCode.USER_ADDRESS_NOT_EXIST.getMessage());
     }
@@ -107,10 +109,44 @@ class UserServiceTest {
         userRepository.save(user);
 
         // then
-        assertThatThrownBy(
-                () -> userService.changeDefaultUserAddress(user.getId(), userAddress1.getId()))
-                .isInstanceOf(IllegalArgumentException.class);
+        assertThatThrownBy(() -> userAddressService.changeDefaultUserAddress(user.getId(), userAddress1.getId()))
+                .isInstanceOf(InvalidAddressException.class)
+                .hasMessage("이미 기본주소로 설정되어 있습니다.");
     }
+
+    @DisplayName("회원은 회원의 주소를 저장할 수 있다.")
+    @Test
+    void addUserAddress() {
+        // given
+        User user = createUser("user");
+        userRepository.save(user);
+
+        UserAddressRequestDto userAddressRequestDto1 = createUserAddressRequestDto(user);
+        UserAddressRequestDto userAddressRequestDto2 = createUserAddressRequestDto(user);
+
+        // when
+        userAddressService.addUserAddress(user.getId(), userAddressRequestDto1);
+        userAddressService.addUserAddress(user.getId(), userAddressRequestDto2);
+        List<UserAddressResponseDto> userAddresses = userAddressService.findUserAddressesByUserId(user.getId());
+
+        // then
+        assertThat(userAddresses).hasSize(2)
+                .extracting("defaultYn")
+                .containsExactly(true, false);
+    }
+
+    private static UserAddressRequestDto createUserAddressRequestDto(User user) {
+        return UserAddressRequestDto.builder()
+                .userId(user.getId())
+                .phoneNumber("01000000000")
+                .address1("address1")
+                .address2("address2")
+                .zipcode("12345")
+                .addressName("addressName")
+                .receiverName("receiverName")
+                .build();
+    }
+
 
     private UserAddress findUserAddress(List<UserAddress> userAddresses, Long userId) {
         return userAddresses.stream()

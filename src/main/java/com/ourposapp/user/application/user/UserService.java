@@ -10,8 +10,6 @@ public interface UserService {
 
     void updatePhoneNumber(Long userId, String phoneNumber);
 
-    void changeDefaultUserAddress(Long userId, Long userAddressId);
-
     User findUserById(Long userId);
 
     Optional<User> findUserByUsername(String username);
