@@ -135,7 +135,7 @@ class UserAddressServiceTest {
                 .containsExactly(true, false);
     }
 
-    private static UserAddressRequestDto createUserAddressRequestDto(User user) {
+    private UserAddressRequestDto createUserAddressRequestDto(User user) {
         return UserAddressRequestDto.builder()
                 .userId(user.getId())
                 .phoneNumber("01000000000")

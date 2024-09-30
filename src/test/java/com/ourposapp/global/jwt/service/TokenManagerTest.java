@@ -18,12 +18,11 @@ class TokenManagerTest {
     @Test
     void expiredToken() throws InterruptedException {
         // given
-        TokenManager tokenManager = new TokenManager
-                (
-                        "1",
-                        "1",
-                        getTokenSecret()
-                );
+        TokenManager tokenManager = new TokenManager(
+                "1",
+                "1",
+                getTokenSecret()
+        );
         JwtTokenDto jwtTokenDto = tokenManager.createJwtTokenDto(1L, Role.ROLE_USER, true);
 
         // when
