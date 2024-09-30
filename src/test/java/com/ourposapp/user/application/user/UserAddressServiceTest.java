@@ -135,6 +135,48 @@ class UserAddressServiceTest {
                 .containsExactly(true, false);
     }
 
+    @DisplayName("회원은 회원의 주소를 삭제할 수 있다.")
+    @Test
+    void deleteUserAddress() {
+        // given
+        User user = createUser("user");
+        userRepository.save(user);
+
+        UserAddressRequestDto userAddressRequestDto1 = createUserAddressRequestDto(user);
+        UserAddressRequestDto userAddressRequestDto2 = createUserAddressRequestDto(user);
+        userAddressService.addUserAddress(user.getId(), userAddressRequestDto1);
+        userAddressService.addUserAddress(user.getId(), userAddressRequestDto2);
+
+        // when
+        Long userAddressId = userAddressService.findUserAddressesByUserId(user.getId()).get(1).getUserAddressId();
+        userAddressService.deleteUserAddress(user.getId(), userAddressId);
+
+        // then
+        assertThat(userAddressService.findUserAddressesByUserId(user.getId())).hasSize(2)
+                .extracting("deleteYn")
+                .containsExactly(false, true);
+    }
+
+    @DisplayName("회원은 회원의 기본 주소를 삭제할 수 없다.")
+    @Test
+    void deleteDeleteUserAddressException() {
+        // given
+        User user = createUser("user");
+        userRepository.save(user);
+
+        UserAddressRequestDto userAddressRequestDto1 = createUserAddressRequestDto(user);
+        userAddressService.addUserAddress(user.getId(), userAddressRequestDto1);
+
+        // when
+        UserAddressResponseDto defaultUserAddress = userAddressService.findDefaultUserAddress(user.getId());
+
+        // then
+        assertThatThrownBy(() -> userAddressService.deleteUserAddress(user.getId(), defaultUserAddress.getUserAddressId()))
+                .isInstanceOf(InvalidAddressException.class)
+                .hasMessage("기본 주소는 삭제할 수 없습니다.");
+    }
+
+
     private UserAddressRequestDto createUserAddressRequestDto(User user) {
         return UserAddressRequestDto.builder()
                 .userId(user.getId())
