@@ -18,6 +18,7 @@ public class UserAddressResponseDto {
     private String receiverName;
     private String phoneNumber;
     private Boolean defaultYn;
+    private Boolean deleteYn;
 
     public static UserAddressResponseDto of(UserAddress userAddress) {
         return UserAddressResponseDto.builder()
@@ -30,6 +31,7 @@ public class UserAddressResponseDto {
                 .receiverName(userAddress.getReceiverName())
                 .phoneNumber(userAddress.getPhone().getPhoneNumber())
                 .defaultYn(userAddress.getDefaultYn())
+                .deleteYn(userAddress.getDeleteYn())
                 .build();
     }
 }

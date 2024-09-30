@@ -45,6 +45,13 @@ public class UserAddressService {
         user.changeDefaultUserAddress(newDefaultAddressId);
     }
 
+    @Transactional
+    public void deleteUserAddress(Long userId, Long userAddressId) {
+        User user = userRepository.findUserWithAddress(userId)
+                .orElseThrow(() -> new EntityNotFoundException(ErrorCode.USER_NOT_EXIST));
+        user.deleteUserAddress(userAddressId);
+    }
+
     public List<UserAddressResponseDto> findUserAddressesByUserId(Long userId) {
         List<UserAddress> userAddresses = userRepository.findUserAddresses(userId);
         return userAddresses.stream()

@@ -87,6 +87,11 @@ public class User extends BaseTimeEntity {
         this.isPhoneVerified = false;
     }
 
+    public void updateRefreshToken(JwtTokenDto jwtTokenDto) {
+        this.refreshToken = jwtTokenDto.getRefreshToken();
+        this.tokenExpirationTime = DateTimeUtils.convertToLocalDateTime(jwtTokenDto.getRefreshTokenExpireTime());
+    }
+
     public void addUserAddress(UserAddress userAddress) {
         if (hasReachedMaxAddresses()) {
             throw new InvalidAddressException(ErrorCode.USER_ADDRESS_MAX_LIMIT_EXCEEDED);
@@ -98,6 +103,10 @@ public class User extends BaseTimeEntity {
 
         userAddresses.add(userAddress);
         userAddress.addUser(this);
+    }
+
+    public void expireRefreshToken(LocalDateTime now) {
+        this.tokenExpirationTime = now;
     }
 
     public void updateUserAddress(UserAddressUpdateDto userAddressUpdateDto) {
@@ -123,11 +132,17 @@ public class User extends BaseTimeEntity {
         newDefaultAddress.setAsDefault();
     }
 
-    public UserAddress getUserAddress(Long userAddressId) {
-        return userAddresses.stream()
-                .filter(userAddress -> userAddress.getId().equals(userAddressId))
-                .findFirst()
-                .orElseThrow(() -> new EntityNotFoundException(ErrorCode.USER_ADDRESS_NOT_EXIST));
+    public void updatePhone(Phone phone) {
+        this.phone = phone;
+        this.isPhoneVerified = true;
+    }
+
+    public void deleteUserAddress(Long userAddressId) {
+        UserAddress userAddress = getUserAddress(userAddressId);
+        if (userAddress.getDefaultYn()) {
+            throw new InvalidAddressException(ErrorCode.USER_ADDRESS_INVALID_DELETION);
+        }
+        userAddress.delete();
     }
 
     public UserAddress getDefaultAddress() {
@@ -137,21 +152,14 @@ public class User extends BaseTimeEntity {
                 .orElseThrow(() -> new EntityNotFoundException(ErrorCode.USER_ADDRESS_NOT_EXIST));
     }
 
+    private UserAddress getUserAddress(Long userAddressId) {
+        return userAddresses.stream()
+                .filter(userAddress -> userAddress.getId().equals(userAddressId))
+                .findFirst()
+                .orElseThrow(() -> new EntityNotFoundException(ErrorCode.USER_ADDRESS_NOT_EXIST));
+    }
+
     private boolean hasReachedMaxAddresses() {
         return userAddresses.size() >= MAX_ADDRESS_COUNT;
-    }
-
-    public void updateRefreshToken(JwtTokenDto jwtTokenDto) {
-        this.refreshToken = jwtTokenDto.getRefreshToken();
-        this.tokenExpirationTime = DateTimeUtils.convertToLocalDateTime(jwtTokenDto.getRefreshTokenExpireTime());
-    }
-
-    public void expireRefreshToken(LocalDateTime now) {
-        this.tokenExpirationTime = now;
-    }
-
-    public void updatePhone(Phone phone) {
-        this.phone = phone;
-        this.isPhoneVerified = true;
     }
 }

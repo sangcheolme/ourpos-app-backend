@@ -58,6 +58,9 @@ public class UserAddress extends BaseTimeEntity {
     @Column(name = "user_address_default_yn")
     private Boolean defaultYn;
 
+    @Column(name = "user_address_delete_yn")
+    private Boolean deleteYn;
+
     @Builder
     private UserAddress(User user, Address address, String name, String receiverName, Phone phone) {
         this.user = user;
@@ -66,17 +69,18 @@ public class UserAddress extends BaseTimeEntity {
         this.receiverName = receiverName;
         this.phone = phone;
         this.defaultYn = false;
+        this.deleteYn = false;
     }
 
-    public void addUser(User user) {
+    void addUser(User user) {
         this.user = user;
     }
 
-    public void setAsDefault() {
+    void setAsDefault() {
         this.defaultYn = true;
     }
 
-    public void unsetDefault() {
+    void unsetDefault() {
         this.defaultYn = false;
     }
 
@@ -85,6 +89,10 @@ public class UserAddress extends BaseTimeEntity {
         this.receiverName = receiverName;
         this.phone = Phone.of(phoneNumber);
         this.address = Address.of(address1, address2, zipcode);
+    }
+
+    void delete() {
+        this.deleteYn = true;
     }
 
 }
