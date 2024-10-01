@@ -8,12 +8,12 @@ import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
+import io.jsonwebtoken.Claims;
+import lombok.RequiredArgsConstructor;
+
 import com.ourposapp.global.jwt.service.TokenManager;
 import com.ourposapp.global.util.AuthorizationCookieUtils;
 import com.ourposapp.user.domain.user.constant.Role;
-
-import io.jsonwebtoken.Claims;
-import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public class UserInfoArgumentResolver implements HandlerMethodArgumentResolver {

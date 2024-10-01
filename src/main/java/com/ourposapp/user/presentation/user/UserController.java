@@ -4,15 +4,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
 import com.ourposapp.global.resolver.login.Login;
 import com.ourposapp.global.resolver.login.UserInfoDto;
 import com.ourposapp.global.response.Result;
 import com.ourposapp.user.application.user.UserInfoService;
 import com.ourposapp.user.application.user.dto.UserInfoResponseDto;
 import com.ourposapp.user.presentation.docs.UserControllerDocs;
-
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RequiredArgsConstructor

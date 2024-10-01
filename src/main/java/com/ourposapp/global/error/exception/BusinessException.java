@@ -1,8 +1,8 @@
 package com.ourposapp.global.error.exception;
 
-import com.ourposapp.global.error.ErrorCode;
-
 import lombok.Getter;
+
+import com.ourposapp.global.error.ErrorCode;
 
 @Getter
 public class BusinessException extends RuntimeException {

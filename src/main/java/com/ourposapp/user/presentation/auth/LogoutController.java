@@ -8,12 +8,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import lombok.RequiredArgsConstructor;
+
 import com.ourposapp.global.response.Result;
 import com.ourposapp.global.util.AuthorizationCookieUtils;
 import com.ourposapp.user.application.auth.AuthenticationService;
 import com.ourposapp.user.presentation.docs.LogoutControllerDocs;
-
-import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @RestController

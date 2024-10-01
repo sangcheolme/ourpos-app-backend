@@ -13,14 +13,14 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
-import com.ourposapp.common.model.Address;
-import com.ourposapp.common.model.BaseTimeEntity;
-import com.ourposapp.common.model.Phone;
-
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import com.ourposapp.common.model.Address;
+import com.ourposapp.common.model.BaseTimeEntity;
+import com.ourposapp.common.model.Phone;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

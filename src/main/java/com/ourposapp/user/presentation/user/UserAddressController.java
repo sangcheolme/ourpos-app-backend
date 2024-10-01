@@ -12,15 +12,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
 import com.ourposapp.global.resolver.login.Login;
 import com.ourposapp.global.resolver.login.UserInfoDto;
 import com.ourposapp.global.response.Result;
 import com.ourposapp.user.application.user.UserAddressService;
 import com.ourposapp.user.application.user.dto.UserAddressResponseDto;
 import com.ourposapp.user.application.user.dto.UserAddressUpdateDto;
-
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RequiredArgsConstructor

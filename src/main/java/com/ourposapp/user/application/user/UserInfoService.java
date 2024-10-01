@@ -3,10 +3,10 @@ package com.ourposapp.user.application.user;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import lombok.RequiredArgsConstructor;
+
 import com.ourposapp.user.application.user.dto.UserInfoResponseDto;
 import com.ourposapp.user.domain.user.entity.User;
-
-import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Transactional(readOnly = true)

@@ -6,6 +6,10 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import io.jsonwebtoken.Claims;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
 import com.ourposapp.external.oauth.model.OAuthAttributes;
 import com.ourposapp.external.oauth.service.SocialLoginApiService;
 import com.ourposapp.external.oauth.service.SocialLoginApiServiceFactory;
@@ -19,10 +23,6 @@ import com.ourposapp.user.application.user.UserService;
 import com.ourposapp.user.domain.user.constant.LoginType;
 import com.ourposapp.user.domain.user.constant.Role;
 import com.ourposapp.user.domain.user.entity.User;
-
-import io.jsonwebtoken.Claims;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RequiredArgsConstructor

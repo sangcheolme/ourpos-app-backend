@@ -2,15 +2,15 @@ package com.ourposapp.user.presentation.docs;
 
 import org.springframework.web.bind.annotation.GetMapping;
 
-import com.ourposapp.global.resolver.login.Login;
-import com.ourposapp.global.resolver.login.UserInfoDto;
-import com.ourposapp.global.response.Result;
-import com.ourposapp.user.application.user.dto.UserInfoResponseDto;
-
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+
+import com.ourposapp.global.resolver.login.Login;
+import com.ourposapp.global.resolver.login.UserInfoDto;
+import com.ourposapp.global.response.Result;
+import com.ourposapp.user.application.user.dto.UserInfoResponseDto;
 
 @Tag(name = "user", description = "회원 API")
 public interface UserControllerDocs {

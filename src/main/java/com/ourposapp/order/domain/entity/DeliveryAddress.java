@@ -10,13 +10,13 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-import com.ourposapp.common.model.Address;
-import com.ourposapp.common.model.Phone;
-
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import com.ourposapp.common.model.Address;
+import com.ourposapp.common.model.Phone;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

@@ -15,12 +15,12 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
-import com.ourposapp.order.domain.constant.DeliveryStatus;
-
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import com.ourposapp.order.domain.constant.DeliveryStatus;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

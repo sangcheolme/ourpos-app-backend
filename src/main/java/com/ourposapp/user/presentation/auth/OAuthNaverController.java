@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import lombok.RequiredArgsConstructor;
+
 import com.ourposapp.external.oauth.naver.client.NaverTokenClient;
 import com.ourposapp.external.oauth.naver.dto.NaverTokenDto;
 import com.ourposapp.global.util.AuthorizationCookieUtils;
@@ -19,8 +21,6 @@ import com.ourposapp.user.application.auth.AuthenticationService;
 import com.ourposapp.user.application.auth.dto.AuthTokenDto;
 import com.ourposapp.user.domain.user.constant.LoginType;
 import com.ourposapp.user.presentation.docs.OAuthNaverControllerDocs;
-
-import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @PropertySource("classpath:config.properties")

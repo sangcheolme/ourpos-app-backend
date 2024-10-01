@@ -8,14 +8,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import lombok.RequiredArgsConstructor;
+
 import com.ourposapp.global.resolver.login.Login;
 import com.ourposapp.global.resolver.login.UserInfoDto;
 import com.ourposapp.global.response.Result;
 import com.ourposapp.user.application.auth.PhoneAuthService;
 import com.ourposapp.user.application.auth.dto.PhoneAuthRequestDto;
 import com.ourposapp.user.application.auth.dto.PhoneRequestDto;
-
-import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @RestController

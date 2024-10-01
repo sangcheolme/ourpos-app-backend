@@ -5,13 +5,13 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import org.springframework.web.servlet.HandlerInterceptor;
 
+import io.jsonwebtoken.Claims;
+import lombok.RequiredArgsConstructor;
+
 import com.ourposapp.global.error.ErrorCode;
 import com.ourposapp.global.error.exception.IncompleteProfileException;
 import com.ourposapp.global.jwt.service.TokenManager;
 import com.ourposapp.global.util.AuthorizationCookieUtils;
-
-import io.jsonwebtoken.Claims;
-import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public class CheckProfileCompleteInterceptor implements HandlerInterceptor {

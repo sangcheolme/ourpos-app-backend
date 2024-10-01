@@ -3,10 +3,10 @@ package com.ourposapp.health.presentation;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import com.ourposapp.health.dto.HealthCheckResponseDto;
-
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+
+import com.ourposapp.health.dto.HealthCheckResponseDto;
 
 @Tag(name = "health check", description = "서버 상태 체크 API")
 public interface HealthCheckControllerDocs {

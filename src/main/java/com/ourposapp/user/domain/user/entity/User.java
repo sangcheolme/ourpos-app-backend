@@ -17,6 +17,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 import com.ourposapp.common.model.BaseTimeEntity;
 import com.ourposapp.common.model.Phone;
 import com.ourposapp.global.error.ErrorCode;
@@ -27,11 +32,6 @@ import com.ourposapp.global.util.DateTimeUtils;
 import com.ourposapp.user.application.user.dto.UserAddressUpdateDto;
 import com.ourposapp.user.domain.user.constant.LoginType;
 import com.ourposapp.user.domain.user.constant.Role;
-
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

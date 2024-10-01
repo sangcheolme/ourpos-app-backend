@@ -1,12 +1,12 @@
 package com.ourposapp.user.application.user.dto;
 
+import lombok.Builder;
+import lombok.Getter;
+
 import com.ourposapp.common.model.Address;
 import com.ourposapp.common.model.Phone;
 import com.ourposapp.user.domain.user.entity.User;
 import com.ourposapp.user.domain.user.entity.UserAddress;
-
-import lombok.Builder;
-import lombok.Getter;
 
 @Getter
 @Builder

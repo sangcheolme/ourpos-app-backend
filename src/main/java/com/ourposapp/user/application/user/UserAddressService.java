@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import lombok.RequiredArgsConstructor;
+
 import com.ourposapp.global.error.ErrorCode;
 import com.ourposapp.global.error.exception.EntityNotFoundException;
 import com.ourposapp.user.application.user.dto.UserAddressRequestDto;
@@ -13,8 +15,6 @@ import com.ourposapp.user.application.user.dto.UserAddressUpdateDto;
 import com.ourposapp.user.domain.user.entity.User;
 import com.ourposapp.user.domain.user.entity.UserAddress;
 import com.ourposapp.user.domain.user.repository.UserRepository;
-
-import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Transactional(readOnly = true)

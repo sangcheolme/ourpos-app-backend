@@ -5,10 +5,10 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.ourposapp.global.response.Result;
-
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+
+import com.ourposapp.global.response.Result;
 
 @Tag(name = "authentication", description = "로그인 / 로그아웃 / 토큰재발급 API")
 public interface LogoutControllerDocs {

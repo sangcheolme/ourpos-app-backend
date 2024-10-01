@@ -10,12 +10,12 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import lombok.RequiredArgsConstructor;
+
 import com.ourposapp.global.interceptor.AdminAuthorizationInterceptor;
 import com.ourposapp.global.interceptor.AuthorizationInterceptor;
 import com.ourposapp.global.jwt.service.TokenManager;
 import com.ourposapp.global.resolver.login.UserInfoArgumentResolver;
-
-import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Configuration

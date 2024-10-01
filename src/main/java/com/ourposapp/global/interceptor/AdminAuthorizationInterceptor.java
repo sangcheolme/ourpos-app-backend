@@ -5,14 +5,14 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import org.springframework.web.servlet.HandlerInterceptor;
 
+import io.jsonwebtoken.Claims;
+import lombok.RequiredArgsConstructor;
+
 import com.ourposapp.global.error.ErrorCode;
 import com.ourposapp.global.error.exception.AuthenticationException;
 import com.ourposapp.global.jwt.service.TokenManager;
 import com.ourposapp.global.util.AuthorizationCookieUtils;
 import com.ourposapp.user.domain.user.constant.Role;
-
-import io.jsonwebtoken.Claims;
-import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public class AdminAuthorizationInterceptor implements HandlerInterceptor {

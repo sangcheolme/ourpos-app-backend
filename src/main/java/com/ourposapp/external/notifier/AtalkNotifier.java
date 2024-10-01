@@ -11,9 +11,9 @@ import net.nurigo.sdk.message.request.SingleMessageSendingRequest;
 import net.nurigo.sdk.message.response.SingleMessageSentResponse;
 import net.nurigo.sdk.message.service.DefaultMessageService;
 
-import com.ourposapp.user.application.auth.PhoneAuthNotifier;
-
 import lombok.extern.slf4j.Slf4j;
+
+import com.ourposapp.user.application.auth.PhoneAuthNotifier;
 
 @Slf4j
 @Transactional

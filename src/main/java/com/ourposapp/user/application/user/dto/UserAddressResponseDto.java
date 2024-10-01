@@ -1,9 +1,9 @@
 package com.ourposapp.user.application.user.dto;
 
-import com.ourposapp.user.domain.user.entity.UserAddress;
-
 import lombok.Builder;
 import lombok.Getter;
+
+import com.ourposapp.user.domain.user.entity.UserAddress;
 
 @Getter
 @Builder

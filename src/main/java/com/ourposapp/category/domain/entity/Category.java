@@ -13,12 +13,12 @@ import jakarta.persistence.OneToMany;
 
 import org.hibernate.annotations.SQLRestriction;
 
-import com.ourposapp.common.model.BaseTimeEntity;
-
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import com.ourposapp.common.model.BaseTimeEntity;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

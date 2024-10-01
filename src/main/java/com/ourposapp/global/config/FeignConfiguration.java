@@ -6,11 +6,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
-import com.ourposapp.global.error.FeignClientExceptionErrorDecoder;
-
 import feign.Logger;
 import feign.Retryer;
 import feign.codec.ErrorDecoder;
+
+import com.ourposapp.global.error.FeignClientExceptionErrorDecoder;
 
 @Configuration
 @EnableFeignClients(basePackages = "com.ourposapp")

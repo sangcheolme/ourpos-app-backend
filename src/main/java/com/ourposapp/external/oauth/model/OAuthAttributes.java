@@ -1,12 +1,12 @@
 package com.ourposapp.external.oauth.model;
 
-import com.ourposapp.user.domain.user.constant.LoginType;
-import com.ourposapp.user.domain.user.constant.Role;
-import com.ourposapp.user.domain.user.entity.User;
-
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
+
+import com.ourposapp.user.domain.user.constant.LoginType;
+import com.ourposapp.user.domain.user.constant.Role;
+import com.ourposapp.user.domain.user.entity.User;
 
 @ToString
 @Getter

@@ -5,6 +5,8 @@ import java.util.Random;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import lombok.RequiredArgsConstructor;
+
 import com.ourposapp.common.model.Phone;
 import com.ourposapp.global.error.ErrorCode;
 import com.ourposapp.global.error.exception.AuthPhoneException;
@@ -12,8 +14,6 @@ import com.ourposapp.user.application.user.UserService;
 import com.ourposapp.user.domain.auth.entity.PhoneAuth;
 import com.ourposapp.user.domain.auth.repository.PhoneAuthRedisRepository;
 import com.ourposapp.user.domain.user.entity.User;
-
-import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Transactional

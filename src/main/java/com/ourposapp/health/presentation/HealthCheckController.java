@@ -7,9 +7,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ourposapp.health.dto.HealthCheckResponseDto;
-
 import lombok.RequiredArgsConstructor;
+
+import com.ourposapp.health.dto.HealthCheckResponseDto;
 
 @RequiredArgsConstructor
 @RestController
