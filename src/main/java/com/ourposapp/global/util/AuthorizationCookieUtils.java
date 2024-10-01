@@ -29,6 +29,22 @@ public class AuthorizationCookieUtils {
                 .build();
     }
 
+    public static ResponseCookie createLogoutAccessToken() {
+        return ResponseCookie.from(ACCESS_TOKEN_COOKIE_NAME, null)
+                .httpOnly(true)
+                .maxAge(0)
+                .path("/")
+                .build();
+    }
+
+    public static ResponseCookie createLogoutRefreshToken() {
+        return ResponseCookie.from(REFRESH_TOKEN_COOKIE_NANE, null)
+                .httpOnly(true)
+                .maxAge(0)
+                .path("/")
+                .build();
+    }
+
     public static String getAccessToken(HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();
         if (cookies == null) {

@@ -22,7 +22,7 @@ public class UserInfoResponseDto {
                 .id(user.getId())
                 .username(user.getUsername())
                 .nickname(user.getNickname())
-                .phoneNumber(user.getProfile() != null ? user.getPhone().getPhoneNumber() : null)
+                .phoneNumber(user.getPhone() != null ? user.getPhone().getPhoneNumber() : null)
                 .role(user.getRole())
                 .profile(user.getProfile())
                 .build();
