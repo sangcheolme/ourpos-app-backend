@@ -14,7 +14,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.ourposapp.external.oauth.naver.client.NaverTokenClient;
 import com.ourposapp.external.oauth.naver.dto.NaverTokenDto;
-import com.ourposapp.global.util.CookieUtils;
+import com.ourposapp.global.util.AuthorizationCookieUtils;
 import com.ourposapp.user.application.auth.AuthenticationService;
 import com.ourposapp.user.application.auth.dto.AuthTokenDto;
 import com.ourposapp.user.domain.user.constant.LoginType;
@@ -73,8 +73,8 @@ public class OAuthNaverController implements OAuthNaverControllerDocs {
 
         AuthTokenDto.Response authTokenDto = authenticationService.authenticate(accessToken, LoginType.NAVER);
 
-        ResponseCookie accessCookie = CookieUtils.createAccessToken(authTokenDto.getAccessToken());
-        ResponseCookie refreshCookie = CookieUtils.createRefreshToken(authTokenDto.getRefreshToken());
+        ResponseCookie accessCookie = AuthorizationCookieUtils.createAccessToken(authTokenDto.getAccessToken());
+        ResponseCookie refreshCookie = AuthorizationCookieUtils.createRefreshToken(authTokenDto.getRefreshToken());
         response.addHeader("Set-Cookie", accessCookie.toString());
         response.addHeader("Set-Cookie", refreshCookie.toString());
         response.sendRedirect(baseUrl);

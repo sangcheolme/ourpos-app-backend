@@ -10,7 +10,7 @@ import org.springframework.http.ResponseCookie;
 import com.ourposapp.global.error.ErrorCode;
 import com.ourposapp.global.error.exception.AuthenticationException;
 
-public class CookieUtils {
+public class AuthorizationCookieUtils {
 
     public static final String ACCESS_TOKEN_COOKIE_NAME = "access_token";
     public static final String REFRESH_TOKEN_COOKIE_NANE = "refresh_token";

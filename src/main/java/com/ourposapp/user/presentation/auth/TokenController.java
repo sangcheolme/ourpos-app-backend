@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ourposapp.global.util.CookieUtils;
+import com.ourposapp.global.util.AuthorizationCookieUtils;
 import com.ourposapp.user.application.auth.TokenService;
 import com.ourposapp.user.application.auth.dto.AccessTokenResponseDto;
 
@@ -25,9 +25,9 @@ public class TokenController {
 
     @PostMapping("/access-token/issue")
     public void createAccessToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String refreshToken = CookieUtils.getRefreshToken(request);
+        String refreshToken = AuthorizationCookieUtils.getRefreshToken(request);
         AccessTokenResponseDto accessTokenResponseDto = tokenService.createAccessTokenByRefreshToken(refreshToken);
-        ResponseCookie accessToken = CookieUtils.createAccessToken(accessTokenResponseDto.getAccessToken());
+        ResponseCookie accessToken = AuthorizationCookieUtils.createAccessToken(accessTokenResponseDto.getAccessToken());
 
         response.addHeader("Set-Cookie", accessToken.toString());
     }

@@ -9,7 +9,7 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
 import com.ourposapp.global.jwt.service.TokenManager;
-import com.ourposapp.global.util.CookieUtils;
+import com.ourposapp.global.util.AuthorizationCookieUtils;
 import com.ourposapp.user.domain.user.constant.Role;
 
 import io.jsonwebtoken.Claims;
@@ -33,7 +33,7 @@ public class UserInfoArgumentResolver implements HandlerMethodArgumentResolver {
                                   NativeWebRequest webRequest,
                                   WebDataBinderFactory binderFactory) throws Exception {
         HttpServletRequest request = (HttpServletRequest) webRequest.getNativeRequest();
-        String accessToken = CookieUtils.getAccessToken(request);
+        String accessToken = AuthorizationCookieUtils.getAccessToken(request);
 
         Claims tokenClaims = tokenManager.getTokenClaims(accessToken);
         Long userId = Long.valueOf((Integer) tokenClaims.get("userId"));

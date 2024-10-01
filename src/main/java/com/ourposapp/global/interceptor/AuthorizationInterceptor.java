@@ -9,7 +9,7 @@ import com.ourposapp.global.error.ErrorCode;
 import com.ourposapp.global.error.exception.AuthenticationException;
 import com.ourposapp.global.jwt.constant.TokenType;
 import com.ourposapp.global.jwt.service.TokenManager;
-import com.ourposapp.global.util.CookieUtils;
+import com.ourposapp.global.util.AuthorizationCookieUtils;
 
 import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +22,7 @@ public class AuthorizationInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws
             Exception {
-        String accessToken = CookieUtils.getAccessToken(request);
+        String accessToken = AuthorizationCookieUtils.getAccessToken(request);
         Claims tokenClaims = tokenManager.getTokenClaims(accessToken);
         String tokenType = tokenClaims.getSubject();
         if (!TokenType.isAccessToken(tokenType)) {
