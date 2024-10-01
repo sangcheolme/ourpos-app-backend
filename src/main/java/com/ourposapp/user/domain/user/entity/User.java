@@ -74,7 +74,7 @@ public class User extends BaseTimeEntity {
     private LocalDateTime tokenExpirationTime;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<com.ourposapp.user.domain.user.entity.UserAddress> userAddresses = new ArrayList<>();
+    private List<UserAddress> userAddresses = new ArrayList<>();
 
     @Builder
     public User(String username, String nickname, String profile, Phone phone, LoginType loginType, Role role) {
@@ -147,7 +147,7 @@ public class User extends BaseTimeEntity {
 
     public UserAddress getDefaultAddress() {
         return userAddresses.stream()
-                .filter(com.ourposapp.user.domain.user.entity.UserAddress::getDefaultYn)
+                .filter(UserAddress::getDefaultYn)
                 .findFirst()
                 .orElseThrow(() -> new EntityNotFoundException(ErrorCode.USER_ADDRESS_NOT_EXIST));
     }
