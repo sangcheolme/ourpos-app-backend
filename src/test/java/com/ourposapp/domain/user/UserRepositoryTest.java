@@ -11,11 +11,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ourposapp.common.model.Address;
-import com.ourposapp.common.model.Phone;
-import com.ourposapp.user.domain.user.entity.User;
-import com.ourposapp.user.domain.user.entity.UserAddress;
-import com.ourposapp.user.domain.user.repository.UserRepository;
+import com.ourposapp.domain.common.Address;
+import com.ourposapp.domain.common.Phone;
 
 @ActiveProfiles("test")
 @Transactional

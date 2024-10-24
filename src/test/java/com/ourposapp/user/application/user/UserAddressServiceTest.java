@@ -13,15 +13,16 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ourposapp.common.model.Address;
-import com.ourposapp.global.error.ErrorCode;
-import com.ourposapp.global.error.exception.EntityNotFoundException;
-import com.ourposapp.global.error.exception.InvalidAddressException;
-import com.ourposapp.user.application.user.dto.UserAddressRequestDto;
-import com.ourposapp.user.application.user.dto.UserAddressResponseDto;
-import com.ourposapp.user.domain.user.entity.User;
-import com.ourposapp.user.domain.user.entity.UserAddress;
-import com.ourposapp.user.domain.user.repository.UserRepository;
+import com.ourposapp.api.controller.user.request.UserAddressRequest;
+import com.ourposapp.api.controller.user.response.UserAddressResponse;
+import com.ourposapp.api.service.user.UserAddressService;
+import com.ourposapp.domain.common.Address;
+import com.ourposapp.domain.user.User;
+import com.ourposapp.domain.user.UserAddress;
+import com.ourposapp.domain.user.UserRepository;
+import com.ourposapp.support.error.ErrorCode;
+import com.ourposapp.support.error.exception.EntityNotFoundException;
+import com.ourposapp.support.error.exception.InvalidAddressException;
 
 @ActiveProfiles("test")
 @Transactional
@@ -121,13 +122,13 @@ class UserAddressServiceTest {
         User user = createUser("user");
         userRepository.save(user);
 
-        UserAddressRequestDto userAddressRequestDto1 = createUserAddressRequestDto(user);
-        UserAddressRequestDto userAddressRequestDto2 = createUserAddressRequestDto(user);
+        UserAddressRequest userAddressRequestDto1 = createUserAddressRequestDto(user);
+        UserAddressRequest userAddressRequestDto2 = createUserAddressRequestDto(user);
 
         // when
         userAddressService.addUserAddress(user.getId(), userAddressRequestDto1);
         userAddressService.addUserAddress(user.getId(), userAddressRequestDto2);
-        List<UserAddressResponseDto> userAddresses = userAddressService.findUserAddressesByUserId(user.getId());
+        List<UserAddressResponse> userAddresses = userAddressService.findUserAddressesByUserId(user.getId());
 
         // then
         assertThat(userAddresses).hasSize(2)
@@ -142,8 +143,8 @@ class UserAddressServiceTest {
         User user = createUser("user");
         userRepository.save(user);
 
-        UserAddressRequestDto userAddressRequestDto1 = createUserAddressRequestDto(user);
-        UserAddressRequestDto userAddressRequestDto2 = createUserAddressRequestDto(user);
+        UserAddressRequest userAddressRequestDto1 = createUserAddressRequestDto(user);
+        UserAddressRequest userAddressRequestDto2 = createUserAddressRequestDto(user);
         userAddressService.addUserAddress(user.getId(), userAddressRequestDto1);
         userAddressService.addUserAddress(user.getId(), userAddressRequestDto2);
 
@@ -164,11 +165,11 @@ class UserAddressServiceTest {
         User user = createUser("user");
         userRepository.save(user);
 
-        UserAddressRequestDto userAddressRequestDto1 = createUserAddressRequestDto(user);
+        UserAddressRequest userAddressRequestDto1 = createUserAddressRequestDto(user);
         userAddressService.addUserAddress(user.getId(), userAddressRequestDto1);
 
         // when
-        UserAddressResponseDto defaultUserAddress = userAddressService.findDefaultUserAddress(user.getId());
+        UserAddressResponse defaultUserAddress = userAddressService.findDefaultUserAddress(user.getId());
 
         // then
         assertThatThrownBy(() -> userAddressService.deleteUserAddress(user.getId(), defaultUserAddress.getUserAddressId()))
@@ -177,8 +178,8 @@ class UserAddressServiceTest {
     }
 
 
-    private UserAddressRequestDto createUserAddressRequestDto(User user) {
-        return UserAddressRequestDto.builder()
+    private UserAddressRequest createUserAddressRequestDto(User user) {
+        return UserAddressRequest.builder()
                 .userId(user.getId())
                 .phoneNumber("01000000000")
                 .address1("address1")

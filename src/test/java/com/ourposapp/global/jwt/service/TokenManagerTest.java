@@ -8,9 +8,10 @@ import java.time.Instant;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import com.ourposapp.global.error.exception.AuthenticationException;
-import com.ourposapp.global.jwt.dto.JwtTokenDto;
-import com.ourposapp.user.domain.user.constant.Role;
+import com.ourposapp.domain.user.Role;
+import com.ourposapp.support.error.exception.AuthenticationException;
+import com.ourposapp.support.jwt.dto.JwtTokenDto;
+import com.ourposapp.support.jwt.service.TokenManager;
 
 class TokenManagerTest {
 

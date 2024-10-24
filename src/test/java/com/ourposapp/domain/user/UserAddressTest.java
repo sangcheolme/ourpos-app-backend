@@ -5,10 +5,8 @@ import static org.assertj.core.api.Assertions.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import com.ourposapp.common.model.Address;
-import com.ourposapp.global.error.exception.InvalidAddressException;
-import com.ourposapp.user.domain.user.entity.User;
-import com.ourposapp.user.domain.user.entity.UserAddress;
+import com.ourposapp.domain.common.Address;
+import com.ourposapp.support.error.exception.InvalidAddressException;
 
 class UserAddressTest {
 
